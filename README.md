@@ -4,7 +4,7 @@
 
 AI agents make it easy to generate presentations as standalone HTML files. But once you have a folder full of slides, you need a way to present them: navigation, speaker notes, fullscreen mode, overview grid, and keyboard shortcuts.
 
-That's what this viewer does. Open `viewer.html` in your browser, pick a folder of HTML slides, and present.
+That's what this viewer does. Open `100-viewer.html` in your browser, pick a folder of HTML slides, and present.
 
 ## See It In Action
 
@@ -12,29 +12,29 @@ That's what this viewer does. Open `viewer.html` in your browser, pick a folder 
 
 The clean interface greets you with a simple folder picker—no config files, no fuss.
 
-![Landing Page](./docs/screenshots/01-landing-page.png)
+![Landing Page](./400-assets/100.png)
 
 ### Presentation View
 
 Navigate with buttons, keyboard shortcuts, or click the edges. The sidebar shows all slides. Progress bar at the bottom.
 
-![Presentation View](./docs/screenshots/02-presentation-view.png)
+![Presentation View](./400-assets/200.png)
 
 ### Overview Grid
 
 Press `O` to see all slides at once. Click any slide to jump to it.
 
-![Overview Grid](./docs/screenshots/03-overview-grid.png)
+![Overview Grid](./400-assets/300.png)
 
 ### Speaker Notes
 
 Press `N` to show notes beside your slides, or `P` to open a presenter window with notes and timer.
 
-![Speaker Notes](./docs/screenshots/04-speaker-notes.png)
+![Speaker Notes](./400-assets/400.png)
 
 ## Get Started In 30 Seconds
 
-1. Open `viewer.html` in any modern browser (Chrome, Edge, Safari, Brave).
+1. Open `100-viewer.html` in any modern browser (Chrome, Edge, Safari, Brave).
 2. Click **Choose Folder** and select your HTML slide files.
 3. Click **Next** or press arrow keys to navigate.
 4. Press `N` to see speaker notes, or `P` for a separate presenter window.

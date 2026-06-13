@@ -4,7 +4,7 @@ This project is intentionally a portable, single-file HTML presentation viewer. 
 
 ## Non-Negotiable Constraints
 
-- `viewer.html` must remain usable by opening it directly in a browser.
+- `100-viewer.html` must remain usable by opening it directly in a browser.
 - Do not require Python, Node, npm, a web server, a build step, a package manager, or a browser extension for normal use.
 - Do not add external runtime dependencies, CDN scripts, web fonts, tracking, analytics, or remote assets.
 - Do not upload, sync, or transmit selected slide files anywhere.
@@ -31,8 +31,8 @@ This project is intentionally a portable, single-file HTML presentation viewer. 
 
 ## Code Organization
 
-- `viewer.html` contains all runtime code: markup, CSS, and JavaScript.
-- Use section comments in `viewer.html` so future edits can find the right area quickly.
+- `100-viewer.html` contains all runtime code: markup, CSS, and JavaScript.
+- Use section comments in `100-viewer.html` so future edits can find the right area quickly.
 - Prefer small, named functions over adding large anonymous blocks.
 - Avoid clever abstractions; this file should be understandable to someone editing plain HTML/CSS/JS.
 - If behavior changes, update `README.md` in the same change.
@@ -41,7 +41,7 @@ This project is intentionally a portable, single-file HTML presentation viewer. 
 
 Before considering a change done:
 
-- Run a JavaScript syntax check by extracting the inline script from `viewer.html`.
+- Run a JavaScript syntax check by extracting the inline script from `100-viewer.html`.
 - Run `git diff --check`.
 - Open the viewer in a browser and inspect the landing page.
 - For UI changes, check both light and dark themes.
