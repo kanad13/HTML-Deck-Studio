@@ -202,17 +202,17 @@ Browsers don't let static HTML files scan arbitrary folders by path—that's a s
 
 ## What This Is
 
-✅ A lightweight presentation viewer for HTML slide files
-✅ Works offline, completely local-first
-✅ No dependencies, no build steps
-✅ Perfect for AI-generated presentations
-✅ Full HTML/CSS/JS freedom per slide
+- ✅ A lightweight presentation viewer for HTML slide files
+- ✅ Works offline, completely local-first
+- ✅ No dependencies, no build steps
+- ✅ Perfect for AI-generated presentations
+- ✅ Full HTML/CSS/JS freedom per slide
 
 ## What This Isn't
 
-❌ A slide authoring tool
-❌ A markdown-to-slides converter
-❌ A PDF exporter
-❌ A collaborative editor
-❌ A web app that requires a server
-❌ A tool that uploads your content
+- ❌ A slide authoring tool
+- ❌ A markdown-to-slides converter
+- ❌ A PDF exporter
+- ❌ A collaborative editor
+- ❌ A web app that requires a server
+- ❌ A tool that uploads your content
