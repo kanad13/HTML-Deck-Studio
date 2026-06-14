@@ -103,7 +103,7 @@ A real deck should usually have:
 - a limited set of repeated layout patterns
 - an opener and a close or clear final implication
 - titles that make slide purpose obvious
-- `deck-context.md` documenting why the deck was built
+- `deck-context.md` documenting why the deck was built the way it was
 
 ## Simple quality check
 

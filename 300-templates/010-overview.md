@@ -14,7 +14,7 @@ It exists so an AI coding agent or a human can quickly build, update, and mainta
 
 ## Folder map
 
-```
+```text
 300-templates/
 ├── 010-overview.md
 ├── 020-system-guide.md

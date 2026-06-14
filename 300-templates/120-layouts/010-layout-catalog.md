@@ -8,7 +8,7 @@ Use these as structural patterns, not as complete files.
 
 - Build the final result as a full standalone HTML slide.
 - Use tokens from the system files.
-- Add `aside-notes` only when useful.
+- Add `aside.notes` only when useful.
 - Keep only the structure that helps the slide communicate clearly.
 
 ## 010 classic-title
@@ -22,7 +22,7 @@ Regions: eyebrow, title, subtitle, meta, notes
     <h1>Primary slide message</h1>
     <div class="accent-line"></div>
     <p class="subtitle">Optional subtitle or framing statement.</p>
-    <p class="meta">Presenter - Organization</p>
+    <p class="meta">Presenter - Organization - Date</p>
     <aside class="notes">Presenter notes.</aside>
   </section>
 </main>
@@ -394,7 +394,7 @@ Regions: diagonal-left, diagonal-right
 ```html
 <main class="slide layout-diagonal-split">
   <section class="diagonal-shell">
-    <div class="diagonal-left">Left concept</div>
+    <div class="diagonal-left"><h1>Left concept</h1></div>
     <div class="diagonal-right"><p>Right concept.</p></div>
   </section>
 </main>
