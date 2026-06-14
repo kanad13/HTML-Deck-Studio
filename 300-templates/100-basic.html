@@ -4,79 +4,41 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-
-  <!--
-  Template: Basic Token-Based Slide
-  Category: Starter
-  Theme: Light
-  Use Case: Starting point for new slide templates
-  Recommended Content:
-  - One title
-  - One short supporting statement
-  - 2–3 cards or key points
-  Notes:
-  - Copy this file when creating new templates
-  - Change token values for branding
-  - Do not hardcode colours inside components
-  -->
-
-  <title>Basic Token-Based Slide</title>
-
+  <title>Basic Slide Scaffold</title>
   <style>
     :root {
-      /* =========================================================
-         DESIGN TOKENS
-         Change colours here only.
-         Layouts and components should consume these tokens.
-      ========================================================= */
-
-      /* Neutrals */
       --surface-0: #ffffff;
-      --surface-1: #f8fafc;
-      --surface-2: #eef2f7;
-
-      --text-primary: #0f172a;
+      --surface-1: #f8f8ff;
+      --surface-2: #efefff;
+      --text-primary: #1f1722;
       --text-secondary: #64748b;
-
-      --border: #e2e8f0;
-
-      /* Brand */
+      --border: #d1d5db;
       --brand-primary: #2563eb;
-      --brand-secondary: #06b6d4;
+      --brand-secondary: #80bde4;
       --brand-tertiary: #d97706;
-      --brand-quaternary: #7c3aed;
-
-      /* Semantic */
+      --brand-quaternary: #f72585;
       --success: #10b981;
       --warning: #f59e0b;
       --danger: #ef4444;
       --info: #3b82f6;
-
-      /* Charts */
       --chart-1: #2563eb;
-      --chart-2: #06b6d4;
+      --chart-2: #a06bda4;
       --chart-3: #10b981;
       --chart-4: #f59e0b;
-      --chart-5: #7c3aed;
+      --chart-5: #f73aed;
       --chart-6: #ef4444;
-
-      /* Spacing */
       --space-1: 0.25rem;
       --space-2: 0.5rem;
       --space-3: 0.75rem;
       --space-4: 1rem;
-      --space-5: 1.5rem;
+      --space-5: 1.25rem;
       --space-6: 2rem;
       --space-7: 3rem;
       --space-8: 4rem;
-
-      /* Shape */
       --radius-sm: 0.5rem;
-      --radius-md: 0.9rem;
+      --radius-md: 0.8rem;
       --radius-lg: 1.25rem;
       --radius-xl: 1.75rem;
-
-      /* Shadow */
       --shadow-soft: 0 18px 50px rgba(15, 23, 42, 0.08);
     }
 
@@ -87,6 +49,8 @@
     body {
       margin: 0;
       min-height: 100vh;
+      display: grid;
+      place-items: center;
       background: var(--surface-2);
       color: var(--text-primary);
       font-family:
@@ -97,8 +61,6 @@
         BlinkMacSystemFont,
         "Segoe UI",
         sans-serif;
-      display: grid;
-      place-items: center;
     }
 
     .slide {
@@ -107,10 +69,10 @@
       background:
         radial-gradient(circle at top right, color-mix(in srgb, var(--brand-primary) 12%, transparent), transparent 34%),
         var(--surface-0);
-      padding: 4.5rem;
-      overflow: hidden;
-      position: relative;
       box-shadow: var(--shadow-soft);
+      position: relative;
+      overflow: hidden;
+      padding: 4.5rem;
     }
 
     .slide::before {
@@ -144,10 +106,10 @@
     h1 {
       margin: 0;
       max-width: 850px;
-      font-size: clamp(2.7rem, 5vw, 4.7rem);
+      font-size: clamp(1.7rem, 5vw, 4.7rem);
       line-height: 0.96;
-      letter-spacing: -0.055em;
-      font-weight: 850;
+      letter-spacing: -0.05rem;
+      font-weight: 650;
     }
 
     .subtitle {
@@ -172,14 +134,6 @@
       padding: var(--space-6);
     }
 
-    .card-number {
-      color: var(--brand-primary);
-      font-size: 2.4rem;
-      font-weight: 850;
-      letter-spacing: -0.05em;
-      margin-bottom: var(--space-3);
-    }
-
     .card h2 {
       margin: 0 0 var(--space-3);
       font-size: 1.1rem;
@@ -193,36 +147,8 @@
       line-height: 1.6;
     }
 
-    .badge-row {
-      display: flex;
-      gap: var(--space-3);
-      flex-wrap: wrap;
-      margin-top: var(--space-5);
-    }
-
-    .badge {
-      display: inline-flex;
-      align-items: center;
-      border-radius: 999px;
-      padding: 0.45rem 0.75rem;
-      font-size: 0.76rem;
-      font-weight: 800;
-      letter-spacing: 0.04em;
-      text-transform: uppercase;
-      background: var(--surface-1);
-      border: 1px solid var(--border);
-    }
-
-    .badge.success {
-      color: var(--success);
-    }
-
-    .badge.warning {
-      color: var(--warning);
-    }
-
-    .badge.info {
-      color: var(--info);
+    aside.notes {
+      display: none;
     }
 
     @media (max-width: 900px) {
@@ -249,49 +175,34 @@
   <main class="slide">
     <section class="content">
       <header>
-        <div class="eyebrow">Template System v2</div>
-        <h1>Build branded slides by changing tokens, not layouts.</h1>
+        <p class="eyebrow">Slide scaffold</p>
+        <h1>Use this file as the canonical standalone base for new slides.</h1>
         <p class="subtitle">
-          This starter template demonstrates the token-based structure used across
-          the presentation system. Copy it when creating new slide layouts.
+          It preserves the canonical token contract, baseline typography, a card pattern, responsive behaviour, and
+          presenter notes support.
         </p>
-
-        <div class="badge-row">
-          <span class="badge success">Success</span>
-          <span class="badge warning">Warning</span>
-          <span class="badge info">Information</span>
-        </div>
       </header>
 
-      <section class="grid" aria-label="Template principles">
+      <section class="grid" aria-label="Scaffold regions">
         <article class="card">
-          <div class="card-number">01</div>
-          <h2>Use tokens</h2>
-          <p>
-            Components consume semantic variables such as brand, surface, text,
-            border, semantic, and chart tokens.
-          </p>
+          <h2>Tokens</h2>
+          <p>Swap token values before touching layout structure.</p>
         </article>
 
         <article class="card">
-          <div class="card-number">02</div>
-          <h2>Keep layouts stable</h2>
-          <p>
-            A new brand should not require a new layout. Update token values and
-            keep the structure intact.
-          </p>
+          <h2>Regions</h2>
+          <p>Name the content regions clearly and keep hierarchy obvious.</p>
         </article>
 
         <article class="card">
-          <div class="card-number">03</div>
-          <h2>Use colour with intent</h2>
-          <p>
-            Brand colours create identity. Semantic colours communicate meaning.
-            Chart colours support data.
-          </p>
+          <h2>Notes</h2>
+          <p>Use the notes block whenever presenter guidance improves the slide.</p>
         </article>
       </section>
     </section>
+
+    <aside class="notes">This scaffold exists to keep new slides standalone while aligned with the system contract.
+    </aside>
   </main>
 </body>
 

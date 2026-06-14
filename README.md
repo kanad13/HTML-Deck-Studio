@@ -135,17 +135,55 @@ Each slide is a standalone HTML file. Use whatever HTML, CSS, and JavaScript you
 
 ## Slide Templates
 
-The `300-templates/` folder contains ready-to-use starting points:
+The `300-templates/` folder is the slide-authoring and slide-generation reference for this repo.
 
-| Template         | Description                                        |
-| ---------------- | -------------------------------------------------- |
-| `100-basic.html` | Minimal starter — copy and customise               |
-| `200-light/`     | 25 light-theme layouts with varied colour palettes |
-| `300-dark/`      | 25 dark-theme layouts with varied colour palettes  |
+Current structure:
 
-Templates cover 25 distinct layout patterns including: classic title, title+body with divider, split diagram+text, image focus, three columns, big quote, stats/numbers, section header, agenda, two-column comparison, horizontal timeline, code snippet, image+text overlay, 2×2 grid cards, consulting style, bold statement, data table, horizontal band split, accent sidebar, pastel gradient, diagonal split, top accent band, minimal typography, visual pyramid, and full-bleed solid colour.
+| Path                                              | Purpose                                               |
+| ------------------------------------------------- | ----------------------------------------------------- |
+| `300-templates/100-basic.html`                    | Canonical standalone slide scaffold                   |
+| `300-templates/110-systems/`                      | Token contract and light/dark token packs             |
+| `300-templates/120-layouts/010-layout-catalog.md` | Structural layout patterns                            |
+| `300-templates/130-workflows/`                    | AI generation, output, arcs, and maintenance guidance |
 
-To start a new slide, copy `100-basic.html`, rename it following your deck's numbering scheme, and adapt the content and styles.
+The layout catalog currently documents 25 structural patterns including classic title, titlebody, split diagram/text, image focus, three columns, big quote, stats, section headers, two-column split, bold statement, data table, split bands, sidebar accent, gradient glass, diagonal split, top accent band, minimal typography, pyramid, and full-bleed grid.
+
+To start a new slide, use `300-templates/100-basic.html` as the default base, adapt the structure using the layout catalog, and keep token names aligned with `300-templates/110-systems/010-token-reference.md`.
+
+## AI Deck Workflow
+
+For AI-assisted deck creation and maintenance, use the docs in `300-templates/130-workflows/`:
+
+- `010-ai-workflow.md` — end-to-end creation and maintenance workflow
+- `020-output-contract.md` — required output structure and naming rules
+- `030-deck-arcs.md` — reusable deck arcs based on common presentation best practices
+- `040-maintenance-context.md` — `deck-context.md` sidecar contract for future updates
+
+Recommended default workflow:
+
+1. Clarify audience, purpose, and source material
+2. Choose a deck arc
+3. Use `100-basic.html` as the base scaffold
+4. Choose a small set of layouts from the catalog
+5. generate standalone slides into `500-output/`
+6. write a `deck-context.md` file beside the slides
+
+## Generated Deck Output
+
+Generated decks belong in `500-output/`.
+
+Recommended structure:
+
+```text
+500-output/
+├── my-deck-name/
+│   ├── slide01.html
+│   ├── slide02.html
+│   ├── slide03.html
+│   └── deck-context.md
+```
+
+Prefer one subfolder per deck and zero-padded slide names such as `slide01.html`.
 
 ## Advanced Features
 

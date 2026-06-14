@@ -1,0 +1,146 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Dark Default Token System</title>
+  <style>
+    :root {
+      --surface-0: #0f172a;
+      --surface-1: #1a2332;
+      --surface-2: #233044;
+      --text-primary: #f1f5f9;
+      --text-secondary: #94a3b8;
+      --border: #334155;
+      --brand-primary: #66b6d4;
+      --brand-secondary: #22d3ee;
+      --brand-tertiary: #4ade80;
+      --brand-quaternary: #818cf8;
+      --success: #22c55e;
+      --warning: #f59e0b;
+      --danger: #f87171;
+      --info: #38bdf8;
+      --chart-1: #66b6d4;
+      --chart-2: #22d3ee;
+      --chart-3: #4ade80;
+      --chart-4: #f59e0b;
+      --chart-5: #818cf8;
+      --chart-6: #f87171;
+      --space-1: 0.25rem;
+      --space-2: 0.5rem;
+      --space-3: 0.75rem;
+      --space-4: 1rem;
+      --space-5: 1.5rem;
+      --space-6: 2rem;
+      --space-7: 3rem;
+      --space-8: 4rem;
+      --radius-sm: 0.5rem;
+      --radius-md: 0.9rem;
+      --radius-lg: 1.25rem;
+      --radius-xl: 1.75rem;
+      --shadow-soft: 0 24px 70px rgba(0, 0, 0, 0.35);
+    }
+
+    * {
+      box-sizing: border-box;
+    }
+
+    body {
+      margin: 0;
+      padding: 3rem;
+      background: #020617;
+      color: var(--text-primary);
+      font-family: Inter, ui-sans-serif, system-ui, -apple-system, BlinkMacSystemfont, "Segoe UI", sans-serif;
+    }
+
+    .panel {
+      max-width: 1100px;
+      margin: 0 auto;
+      background: linear-gradient(135deg, var(--surface-0), var(--surface-1));
+      border: 1px solid var(--border);
+      border-radius: var(--radius-xl);
+      box-shadow: var(--shadow-soft);
+      padding: var(--space-7);
+    }
+
+    h1 {
+      margin: 0 0 1rem;
+      font-size: clamp(2.2rem, 5vw, 4rem);
+      letter-spacing: -0.04em;
+    }
+
+    p {
+      color: var(--text-secondary);
+      line-height: 1.65;
+    }
+
+    .grid {
+      display: grid;
+      grid-template-columns: repeat(4, 1fr);
+      gap: var(--space-4);
+      margin-top: var(--space-6);
+    }
+
+    .swatch {
+      border: 1px solid var(--border);
+      border-radius: var(--radius-md);
+      overflow: hidden;
+      background: var(--surface-2);
+    }
+
+    .chip {
+      height: 96px;
+    }
+
+    .label {
+      padding: var(--space-3);
+      font-size: 0.85rem;
+      color: var(--text-secondary);
+    }
+
+    .brand-1 {
+      background: var(--brand-primary);
+    }
+
+    .brand-2 {
+      background: var(--brand-secondary);
+    }
+
+    .brand-3 {
+      background: var(--brand-tertiary);
+    }
+
+    .brand-4 {
+      background: var(--brand-quaternary);
+    }
+  </style>
+</head>
+
+<body>
+  <main class="panel">
+    <h1>Dark Default Token System</h1>
+    <p>This is the canonical dark token pack reference. Apply these token values to any compatible layout without
+      changing the layout structure.</p>
+    <section class="grid" aria-label="Brand tokens">
+      <article class="swatch">
+        <div class="chip brand-1"></div>
+        <div class="label">— brand-primary</div>
+      </article>
+      <article class="swatch">
+        <div class="chip brand-2"></div>
+        <div class="label">— brand-secondary</div>
+      </article>
+      <article class="swatch">
+        <div class="chip brand-3"></div>
+        <div class="label">— brand-tertiary</div>
+      </article>
+      <article class="swatch">
+        <div class="chip brand-4"></div>
+        <div class="label">— brand-quaternary</div>
+      </article>
+    </section>
+  </main>
+</body>
+
+</html>
