@@ -1,178 +1,143 @@
-# HTML Slide Deck Viewer
+# HTML Deck Studio
 
-**Transform HTML slides into a polished presentation.** No servers. No build steps. No dependencies.
+A local-first system for creating, maintaining, and presenting standalone HTML slide decks.
 
-AI agents make it easy to generate presentations as standalone HTML files. But once you have a folder full of slides, you need a way to present them: navigation, speaker notes, fullscreen mode, overview grid, and keyboard shortcuts.
+HTML Deck Studio has two connected parts:
 
-That's what this viewer does. Open `100-viewer.html` in your browser, pick a folder of HTML slides, and present.
+1. **Local HTML deck viewer**
+   Open `100-viewer.html`, choose a folder of HTML slides, and present with navigation, speaker notes, overview mode, fullscreen mode, and a presenter window.
+
+2. **AI-friendly deck generation framework**
+   Use `300-templates/` with an AI agent to create and maintain standalone HTML slide decks using reusable layouts, narrative arcs, output rules, deck context, and tokenized themes.
+
+No server. No build step. No runtime dependencies. Your slides stay local.
+
+---
 
 ## See It In Action
 
-### Landing Page
+![](./400-assets/100.png)
+![](./400-assets/200.png)
+![](./400-assets/300.png)
+![](./400-assets/400.png)
 
-The clean interface greets you with a simple folder picker—no config files, no fuss.
+---
 
-![Landing Page](./400-assets/100.png)
+## Why This Exists
 
-### Presentation View
+Most presentation tools make you choose between:
 
-Navigate with buttons, keyboard shortcuts, or click the edges. The sidebar shows all slides. Progress bar at the bottom.
+- proprietary slide editors,
+- cloud-based collaboration platforms,
+- static exports such as PDFs,
+- or developer-heavy presentation frameworks that need build tools.
 
-![Presentation View](./400-assets/200.png)
+HTML Deck Studio takes a different approach:
 
-### Overview Grid
+- slides are plain standalone HTML files;
+- the viewer runs locally in the browser;
+- AI agents can generate and update decks using documented workflows;
+- visual style is controlled through tokens, not scattered CSS;
+- generated decks remain portable, editable, and versionable;
+- deck context is preserved so future updates do not start from scratch.
 
-Press `O` to see all slides at once. Click any slide to jump to it.
+---
 
-![Overview Grid](./400-assets/300.png)
+## Two Ways To Use This Repo
 
-### Speaker Notes
+### 1. Present an existing HTML deck
 
-Press `N` to show notes beside your slides, or `P` to open a presenter window with notes and timer.
+Use this when you already have a folder of `.html` slide files.
 
-![Speaker Notes](./400-assets/400.png)
+1. Open `100-viewer.html` in a modern browser.
+2. Click **Choose Folder** or **Choose Files**.
+3. Select your slide files.
+4. Present using buttons, keyboard shortcuts, speaker notes, overview mode, or presenter mode.
 
-## Get Started In 30 Seconds
+### 2. Generate or maintain a deck with AI
 
-1. Open `100-viewer.html` in any modern browser (Chrome, Edge, Safari, Brave).
-2. Click **Choose Folder** and select your HTML slide files.
-3. Click **Next** or press arrow keys to navigate.
-4. Press `N` to see speaker notes, or `P` for a separate presenter window.
+Use this when you want an AI agent to create or update a deck.
 
-**No server. No installation. Works offline.**
+1. Give the AI agent this repo and your source material.
+2. Start with `300-templates/010-overview.md`.
+3. Follow `300-templates/130-workflows/010-ai-workflow.md`.
+4. Generate standalone slides into `500-output/<deck-name>/`.
+5. Include `deck-context.md` beside the slides.
+6. Open the generated deck with `100-viewer.html`.
 
-## What You Get
+---
 
-| Feature              | What It Does                                         |
-| -------------------- | ---------------------------------------------------- |
-| **Folder picker**    | Choose local files without editing config            |
-| **Smart sorting**    | `slide2.html` appears before `slide10.html`          |
-| **Visible nav**      | Click edges, buttons, arrow keys, spacebar, or swipe |
-| **Slide sidebar**    | Jump to any slide by title                           |
-| **Overview grid**    | Scan all slides and jump instantly                   |
-| **Zen fullscreen**   | Hide all chrome for audience view                    |
-| **Speaker notes**    | Private talking points beside your slides            |
-| **Presenter window** | Second monitor with notes and timer                  |
-| **Theme toggle**     | Dark or light mode                                   |
-| **Deep links**       | URL remembers your current slide                     |
-| **Offline mode**     | Works completely without internet                    |
+## Core Concepts
 
-## When to Use This
+### Standalone HTML slides
 
-Use the viewer when you:
+Each slide is a complete HTML document.
 
-- Ask an AI agent to generate a presentation as HTML files
-- Need to review or present generated slides immediately
-- Want full HTML/CSS control without rigid slide templates
-- Must keep sensitive material local and offline
-- Prefer a portable viewer that travels with your deck
-- Want presentation controls without adopting a full framework
+A slide should usually include:
 
-## Keyboard Shortcuts
+- `<!DOCTYPE html>`;
+- `<html lang="...">`;
+- charset and viewport metadata;
+- a meaningful `<title>`;
+- inline token definitions;
+- inline CSS;
+- slide markup;
+- optional `<aside class="notes">`.
 
-| Action           | Keys           |
-| ---------------- | -------------- |
-| Next slide       | `→` or `Space` |
-| Previous slide   | `←`            |
-| First slide      | `Home`         |
-| Last slide       | `End`          |
-| Zen (fullscreen) | `Z` or `F`     |
-| Overview grid    | `O`            |
-| Speaker notes    | `N`            |
-| Presenter window | `P`            |
-| Slide list       | `L`            |
-| Theme toggle     | `M`            |
-| Open deck        | `D`            |
-| Help             | `H` or `?`     |
-| Close/Exit       | `Esc`          |
+Slides should not require a server, build step, package manager, CDN, or shared CSS file by default.
 
-On touch devices, swipe left and right to navigate.
+### Local viewer
 
-## Build Your Slides
+`100-viewer.html` is the runtime viewer.
 
-Each slide is a standalone HTML file. Use broad HTML, CSS, and JavaScript freedom per slide, subject to normal browser restrictions for local files.
+It:
 
-**Minimal slide example:**
+- opens directly in the browser;
+- loads local `.html` / `.htm` slide files;
+- keeps slides isolated in iframes;
+- supports navigation, speaker notes, overview, fullscreen, and presenter mode;
+- stores only lightweight local preferences such as viewer theme and last slide number.
 
-```html
-<!DOCTYPE html>
-<html lang="en">
-  <head>
-    <meta charset="utf-8" />
-    <meta
-      name="viewport"
-      content="width=device-width, initial-scale=1" />
-    <title>My Slide</title>
-    <style>
-      body {
-        display: grid;
-        place-items: center;
-        height: 100%;
-        font-family: system-ui;
-      }
-    </style>
-  </head>
-  <body>
-    <main>
-      <h1>Project Update</h1>
-      <p>What changed, what shipped, what's next.</p>
-    </main>
+The viewer is intentionally theme-agnostic. It does not need to know whether slides use default light tokens, default dark tokens, or a custom token pack.
 
-    <aside class="notes">Mention the customer feedback here.</aside>
-  </body>
-</html>
-```
+### AI generation framework
 
-**Key points:**
+`300-templates/` is the authoring and generation framework.
 
-- Each file is a complete, standalone HTML document
-- The viewer loads each slide in an isolated iframe
-- Slides don't interfere with each other
-- Use `<title>` for the slide list label (falls back to first heading or filename)
-- Add `<aside class="notes">` for speaker notes (hidden until you press `N`)
+It gives an AI agent or human maintainer:
 
-**File naming matters:** The viewer sorts slides naturally, so `slide02.html` appears before `slide10.html`.
+- a canonical standalone slide scaffold;
+- a token contract;
+- default light and dark token packs;
+- custom theme intake guidance;
+- layout patterns;
+- deck arcs;
+- output rules;
+- maintenance context rules.
 
-## Slide Templates
-
-The `300-templates/` folder is the slide-authoring and slide-generation reference for this repo.
-
-Current structure:
-
-| Path                                              | Purpose                                                               |
-| ------------------------------------------------- | --------------------------------------------------------------------- |
-| `300-templates/100-basic.html`                    | Canonical standalone slide scaffold                                   |
-| `300-templates/110-systems/`                      | Token contract, default token packs, and custom theme intake guidance |
-| `300-templates/120-layouts/010-layout-catalog.md` | Structural layout patterns                                            |
-| `300-templates/130-workflows/`                    | AI generation, output, arcs, and maintenance guidance                 |
-
-The layout catalog documents structural patterns such as classic title, title-body, split diagram/text, image focus, three columns, big quote, stats, section headers, agenda, comparison, timeline, data table, sidebar accent, diagonal split, pyramid, and full-bleed layouts.
-
-To start a new slide, use `300-templates/100-basic.html` as the default base, adapt the structure using the layout catalog, and keep token names aligned with `300-templates/110-systems/010-token-reference.md`.
-
-### Theme and Token System
+### Tokenized themes
 
 Slides use a token-based visual system.
 
 The framework includes two default complete token packs:
 
-1. **Light default**:
-   Use this for normal light-background decks.
+1. **Light default**
+   Use for normal light-background decks.
 
-2. **Dark default**:
-   Use this for dark-background or high-contrast decks.
+2. **Dark default**
+   Use for dark-background or high-contrast decks.
 
 A deck can also use a **custom token pack**.
 
-Custom token packs are useful when the user says things like:
+Custom token packs can be inspired by:
 
-- "Make it look like this company."
-- "Use this screenshot as inspiration."
-- "Use these hex colours."
-- "Make it mild and professional."
-- "Use olive green and black."
-- "Make it bright and energetic."
-- "Create something suitable for an executive technology briefing."
+- company or brand references;
+- screenshots or visual examples;
+- URLs or online style references;
+- existing slides or decks;
+- user-provided hex values;
+- mood words such as "mild", "premium", "bright", or "professional";
+- industry, audience, or event context.
 
 The rule is simple:
 
@@ -183,43 +148,159 @@ That means colours from a company reference, screenshot, URL, mood description, 
 
 - `--surface-0`
 - `--surface-1`
+- `--surface-2`
 - `--text-primary`
+- `--text-secondary`
+- `--border`
 - `--brand-primary`
+- `--brand-secondary`
 - `--success`
 - `--warning`
 - `--danger`
-- `--chart-1`
+- `--info`
+- `--chart-1` to `--chart-6`
 
-Generated slides should then consume those tokens rather than scattering random hardcoded colours across components.
+Generated slides should consume those tokens rather than using random hardcoded colours across components.
 
-By default, token values and CSS are embedded inline in each standalone slide. This keeps the slides portable and compatible with the local viewer.
+By default, token values and CSS are embedded inline in each standalone slide. This keeps slides portable and compatible with the local viewer.
 
-## AI Deck Workflow
+### Deck context sidecar
 
-For AI-assisted deck creation and maintenance, use the docs in `300-templates/130-workflows/`:
+Every generated deck should usually include a `deck-context.md` file.
 
-- `010-ai-workflow.md` — end-to-end creation and maintenance workflow
-- `020-output-contract.md` — required output structure and naming rules
-- `030-deck-arcs.md` — reusable deck arcs based on common presentation best practices
-- `040-maintenance-context.md` — `deck-context.md` sidecar contract for future updates
+This file records:
 
-For custom visual direction, use:
+- why the deck was created;
+- who the audience is;
+- what source material was used;
+- which deck arc was chosen;
+- which theme path was used;
+- whether the deck uses default or custom tokens;
+- what visual inspiration shaped the theme;
+- what assumptions were made;
+- what changed in later revisions.
+
+This makes future AI-assisted maintenance much easier.
+
+---
+
+## Repository Map
+
+```text
+.
+├── 100-viewer.html
+├── 200-demos/
+├── 300-templates/
+│   ├── 010-overview.md
+│   ├── 020-system-guide.md
+│   ├── 100-basic.html
+│   ├── 110-systems/
+│   │   ├── 010-token-reference.md
+│   │   ├── 020-theme-intake-and-tokenization.md
+│   │   ├── 100-light-default.html
+│   │   └── 110-dark-default.html
+│   ├── 120-layouts/
+│   │   └── 010-layout-catalog.md
+│   └── 130-workflows/
+│       ├── 010-ai-workflow.md
+│       ├── 020-output-contract.md
+│       ├── 030-deck-arcs.md
+│       └── 040-maintenance-context.md
+├── 400-assets/
+├── AGENTS.md
+└── README.md
+```
+
+### Key files
+
+- `100-viewer.html`
+  The local single-file presentation viewer.
+
+- `300-templates/010-overview.md`
+  Starting point for the slide generation framework.
+
+- `300-templates/020-system-guide.md`
+  Main guide for how the token, layout, workflow, and slide systems fit together.
+
+- `300-templates/100-basic.html`
+  Canonical standalone slide scaffold.
+
+- `300-templates/110-systems/010-token-reference.md`
+  Canonical token contract.
 
 - `300-templates/110-systems/020-theme-intake-and-tokenization.md`
+  Guide for converting brand, screenshot, URL, mood, and hex inspiration into tokens.
 
-Recommended default workflow:
+- `300-templates/110-systems/100-light-default.html`
+  Default complete light token pack.
 
-- Clarify audience, purpose, and source material
-- Choose a deck arc
-- Choose a theme path:
-  - default light token pack
-  - default dark token pack
-  - or custom token pack from user inspiration
-- Use `100-basic.html` as the base scaffold
-- Choose a small set of layouts from the catalog
-- Generate standalone slides into `500-output/`
-- Write a `deck-context.md` file beside the slides
-- Record the theme source and token strategy in `deck-context.md`
+- `300-templates/110-systems/110-dark-default.html`
+  Default complete dark token pack.
+
+- `300-templates/120-layouts/010-layout-catalog.md`
+  Structural layout patterns for generated slides.
+
+- `300-templates/130-workflows/010-ai-workflow.md`
+  End-to-end AI deck creation and maintenance workflow.
+
+- `300-templates/130-workflows/020-output-contract.md`
+  Output structure, file naming, standalone slide, and theme rules.
+
+- `300-templates/130-workflows/030-deck-arcs.md`
+  Reusable narrative arcs for common presentation types.
+
+- `300-templates/130-workflows/040-maintenance-context.md`
+  `deck-context.md` sidecar guidance.
+
+- `AGENTS.md`
+  Development guardrails for future changes.
+
+---
+
+## Quick Start
+
+### Present a deck
+
+1. Open `100-viewer.html`.
+2. Click **Choose Folder**.
+3. Select a folder containing `.html` slides.
+4. Use arrow keys, buttons, or the slide list to navigate.
+5. Press `N` for speaker notes.
+6. Press `P` for presenter mode.
+7. Press `Z` or `F` for fullscreen/zen mode.
+
+If folder picking is not available in your browser, use **Choose Files** instead.
+
+### Generate a deck with AI
+
+Ask an AI agent to use the framework like this:
+
+```text
+Use this repo to create a standalone HTML slide deck.
+
+Start with:
+- 300-templates/010-overview.md
+- 300-templates/020-system-guide.md
+- 300-templates/130-workflows/010-ai-workflow.md
+- 300-templates/130-workflows/020-output-contract.md
+
+Generate the deck into:
+500-output/<deck-name>/
+
+Each slide must be standalone HTML with inline token values and CSS.
+Also create deck-context.md.
+```
+
+If you want custom visual styling, include instructions such as:
+
+```text
+Use a professional olive green and black visual direction.
+Convert the style into the canonical token contract.
+Keep every slide standalone.
+Document the theme source and token strategy in deck-context.md.
+```
+
+---
 
 ## Generated Deck Output
 
@@ -229,103 +310,252 @@ Recommended structure:
 
 ```text
 500-output/
-├── my-deck-name/
-│   ├── slide01.html
-│   ├── slide02.html
-│   ├── slide03.html
-│   └── deck-context.md
+└── my-deck-name/
+    ├── slide01.html
+    ├── slide02.html
+    ├── slide03.html
+    └── deck-context.md
 ```
 
-Prefer one subfolder per deck and zero-padded slide names such as `slide01.html`.
+Rules:
 
-Each slide should remain standalone by default.
-Do not create a shared CSS file unless the user explicitly asks for that structure.
+- use one subfolder per deck;
+- use zero-padded slide names such as `slide01.html`;
+- keep slide numbering contiguous;
+- keep each slide standalone;
+- embed token values and CSS inline by default;
+- do not create a shared CSS dependency unless explicitly requested;
+- include `deck-context.md` for future maintenance.
 
-## Advanced Features
+---
 
-### Speaker Notes
+## Minimal Slide Example
 
-Add private notes to any slide:
+```html
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8" />
+    <meta
+      name="viewport"
+      content="width=device-width, initial-scale=1" />
+    <title>Project Update</title>
+    <style>
+      body {
+        margin: 0;
+        height: 100vh;
+        display: grid;
+        place-items: center;
+        font-family: system-ui, sans-serif;
+      }
+
+      main {
+        max-width: 760px;
+      }
+    </style>
+  </head>
+  <body>
+    <main>
+      <h1>Project Update</h1>
+      <p>What changed, what shipped, and what comes next.</p>
+    </main>
+
+    <aside class="notes">
+      Mention the customer feedback before moving to the roadmap.
+    </aside>
+  </body>
+</html>
+```
+
+The viewer uses:
+
+- `<title>` for the slide list label;
+- the first heading or filename as fallback;
+- `<aside class="notes">` for speaker notes.
+
+---
+
+## Viewer Features
+
+### Local file loading
+
+Choose a folder or individual slide files directly from the browser. No config file is needed.
+
+### Natural slide sorting
+
+Slides are sorted naturally, so `slide02.html` appears before `slide10.html`.
+
+### Navigation
+
+Navigate with:
+
+- toolbar buttons;
+- arrow keys;
+- spacebar;
+- Home / End;
+- slide list;
+- overview grid;
+- touch swipe on supported devices.
+
+### Slide sidebar
+
+Open the slide list to jump directly to any slide.
+
+### Overview grid
+
+Press `O` to see all slides at once and jump to a selected slide.
+
+### Speaker notes
+
+Add notes to any slide:
 
 ```html
 <aside class="notes">Key talking points only you see.</aside>
 ```
 
-- Press `N` to show notes in a docked sidebar
-- Press `P` to open a separate presenter window with notes and a timer
-- Notes are never shown in the main slide view
+Press `N` to show notes in a docked sidebar.
 
-### Presenter Mode
+### Presenter window
 
-Open a second window with:
+Press `P` to open a separate presenter window with:
 
-- Speaker notes for the current slide
-- Countdown timer
-- Slide navigator
-- Useful for displaying slides on a projector while you present on another monitor
+- current slide title;
+- speaker notes;
+- timer;
+- slide count.
 
-### Theme Toggle
+### Zen fullscreen
 
-Switch between dark and light themes for the viewer chrome with the **Theme** button or press M.
+Press `Z` or `F` to enter a clean presentation mode.
 
-This changes the viewer interface only.
-It does not change the slide iframe contents.
+### Viewer theme toggle
+
+Press `M` to switch the viewer chrome between dark and light mode.
+
+This only changes the viewer interface. It does not change slide iframe contents.
+
+---
+
+## Keyboard Shortcuts
+
+| Action              | Keys           |
+| ------------------- | -------------- |
+| Next slide          | `→` or `Space` |
+| Previous slide      | `←`            |
+| First slide         | `Home`         |
+| Last slide          | `End`          |
+| Zen fullscreen      | `Z` or `F`     |
+| Overview grid       | `O`            |
+| Speaker notes       | `N`            |
+| Presenter window    | `P`            |
+| Slide list          | `L`            |
+| Viewer theme toggle | `M`            |
+| Open deck           | `D`            |
+| Help                | `H` or `?`     |
+| Close / Exit        | `Esc`          |
+
+---
 
 ## Browser Support
 
-| Browser | Status                                          |
-| ------- | ----------------------------------------------- |
-| Chrome  | ✅ Full support                                 |
-| Edge    | ✅ Full support                                 |
-| Safari  | ✅ Full support                                 |
-| Brave   | ✅ Full support                                 |
-| Firefox | ⚠️ Use "Choose Files" instead of folder picking |
+| Browser | Status                                         |
+| ------- | ---------------------------------------------- |
+| Chrome  | Full support                                   |
+| Edge    | Full support                                   |
+| Safari  | Full support                                   |
+| Brave   | Full support                                   |
+| Firefox | Use **Choose Files** instead of folder picking |
 
-The viewer uses browser-native file APIs. If folder picking doesn't work, use **Choose Files** to select individual slides.
+The viewer uses browser-native file APIs. Folder picking support varies by browser. If folder picking does not work, use **Choose Files** to select individual slides.
 
-## Privacy & Offline
+---
 
-- **Your slides stay local.** Nothing is uploaded.
-- **Works offline.** No internet required after opening the file.
-- **Browser storage only.** Lightweight preferences (theme, last slide number) are stored locally.
-- **Temporary access.** When you close the tab, access to your files is revoked.
+## Privacy and Offline Model
 
-## Why Not Just Use…
+HTML Deck Studio is local-first.
 
-| Tool                 | Why This Is Different                                                       |
-| -------------------- | --------------------------------------------------------------------------- |
-| PowerPoint / Keynote | `HTML Slide Deck Viewer` gives you code-level HTML/CSS control              |
-| Google Slides        | `HTML Slide Deck Viewer` works offline and keeps your slides local          |
-| Reveal.js / Remark   | `HTML Slide Deck Viewer` needs no build step or dependencies                |
-| PDF export           | `HTML Slide Deck Viewer` is a live presentation tool, not a document format |
+- Slides stay on your machine.
+- The viewer does not upload selected slide files.
+- The viewer works without a server.
+- The viewer does not require a build step.
+- The viewer does not require runtime dependencies.
+- Lightweight viewer preferences are stored in browser storage.
+- Browser access to selected files is temporary and user-granted.
 
-## Development & Maintenance
-
-See [`AGENTS.md`](AGENTS.md) for development guidelines and future-proofing rules.
-
-**Core principle:** Users should never need Python, Node, npm, a server, build tools, CDN scripts, or external dependencies to present.
-
-If you modify the viewer, please update this README and keep `AGENTS.md` accurate.
-
-## Why The Folder Picker?
-
-Browsers don't let static HTML files scan arbitrary folders by path—that's a security feature. The folder picker is the browser-approved way for _you_ to grant access to your local files. This is why the viewer asks you to choose a folder instead of hardcoding a path.
+---
 
 ## What This Is
 
-- ✅ A lightweight presentation viewer for HTML slide files
-- ✅ Works offline, completely local-first
-- ✅ No dependencies, no build steps
-- ✅ Perfect for AI-generated presentations
-- ✅ Full HTML/CSS/JS freedom per slide, within normal browser limits
-- ✅ Compatible with default and custom tokenized slide themes
+HTML Deck Studio is:
 
-## What This Isn't
+- a local HTML slide deck viewer;
+- an AI-friendly slide generation framework;
+- a token-based visual system for standalone HTML decks;
+- a way to create custom-branded decks from controlled visual inspiration;
+- a portable workflow for decks that should remain editable as plain files;
+- useful for users who want local control, versionable output, and no presentation server.
 
-- ❌ A slide authoring tool
-- ❌ A markdown-to-slides converter
-- ❌ A PDF exporter
-- ❌ A collaborative editor
-- ❌ A web app that requires a server
-- ❌ A tool that uploads your content
-- ❌ A runtime theme generator for already-loaded slides
+---
+
+## What This Is Not
+
+HTML Deck Studio is not:
+
+- a PowerPoint-compatible file editor;
+- a visual drag-and-drop slide editor;
+- a collaborative cloud presentation platform;
+- a markdown-to-slides pipeline;
+- a PDF exporter;
+- a hosted web app;
+- a runtime theme generator for already-loaded slides;
+- a tool that uploads your slide content.
+
+---
+
+## How This Compares
+
+Use HTML Deck Studio when you want local, editable, AI-generatable HTML decks with code-level control.
+
+It is not intended to replace PowerPoint, Keynote, or Google Slides for users who need GUI editing, live collaboration, or native office-format workflows.
+
+It is also not intended to replace developer-heavy presentation frameworks when you specifically want routing, plugins, build pipelines, or web deployment.
+
+HTML Deck Studio sits in a narrower space:
+
+```text
+plain HTML slides
++ local presentation viewer
++ AI-assisted generation workflow
++ tokenized visual consistency
++ offline-friendly operation
+```
+
+---
+
+## Development and Maintenance
+
+See `AGENTS.md` for development guardrails.
+
+Core principles:
+
+- keep `100-viewer.html` dependency-free;
+- preserve direct browser usage;
+- keep generated slides standalone by default;
+- keep viewer runtime behavior separate from the authoring framework;
+- update `README.md` when user-facing behavior changes;
+- update `deck-context.md` when generated decks are materially changed.
+
+Before changing viewer behavior, test with:
+
+- at least two `.html` slides;
+- one slide containing `<aside class="notes">`;
+- both dark and light viewer chrome;
+- folder selection and file selection where possible.
+
+Before changing template or generation behavior, check:
+
+- token names follow the canonical contract;
+- custom inspiration is converted into tokens;
+- generated slides remain standalone;
+- output follows the output contract;
+- `deck-context.md` records narrative and theme decisions.
