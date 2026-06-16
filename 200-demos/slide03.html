@@ -2,130 +2,228 @@
 <html lang="en">
 
 <head>
-  <meta charset="utf-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1">
-  <title>Navigation Controls</title>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>Token Roles Before Styling</title>
   <style>
-    * {
+    :root {
+      --surface-0: #0f172a;
+      --surface-1: #1a2332;
+      --surface-2: #233044;
+      --text-primary: #f1f5f9;
+      --text-secondary: #94a3b8;
+      --border: #334155;
+      --brand-primary: #06b6d4;
+      --brand-secondary: #22d3ee;
+      --brand-tertiary: #4ade80;
+      --brand-quaternary: #818cf8;
+      --success: #22c55e;
+      --warning: #f59e0b;
+      --danger: #f87171;
+      --info: #38bdf8;
+      --chart-1: #06b6d4;
+      --chart-2: #22d3ee;
+      --chart-3: #4ade80;
+      --chart-4: #f59e0b;
+      --chart-5: #818cf8;
+      --chart-6: #f87171;
+      --space-1: 0.25rem;
+      --space-2: 0.5rem;
+      --space-3: 0.75rem;
+      --space-4: 1rem;
+      --space-5: 1.5rem;
+      --space-6: 2rem;
+      --space-7: 3rem;
+      --space-8: 4rem;
+      --radius-sm: 0.5rem;
+      --radius-md: 0.9rem;
+      --radius-lg: 1.25rem;
+      --radius-xl: 1.75rem;
+      --shadow-soft: 0 24px 70px rgba(0, 0, 0, 0.35);
+    }
+
+    @page {
+      size: 16in 9in;
       margin: 0;
-      padding: 0;
+    }
+
+    * {
       box-sizing: border-box;
     }
 
     html,
     body {
+      margin: 0;
+      width: 100%;
       height: 100%;
-      background: linear-gradient(135deg, #1a1f2e 0%, #141820 100%);
-      color: #f5f6f8;
-      font-family: system-ui, -apple-system, sans-serif;
+      background: var(--surface-0);
+      color: var(--text-primary);
+      font-family: ui-sans-serif, system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
+      -webkit-print-color-adjust: exact;
+      print-color-adjust: exact;
     }
 
     body {
-      display: flex;
-      align-items: center;
-      justify-content: center;
-      padding: 40px;
+      overflow: hidden;
     }
 
-    .container {
-      max-width: 680px;
-      text-align: center;
-    }
-
-    h2 {
-      font-size: clamp(2rem, 5vw, 3rem);
-      font-weight: 700;
-      margin-bottom: 50px;
-    }
-
-    .controls {
+    .slide {
+      width: 100vw;
+      height: 100vh;
+      padding: var(--space-7);
       display: grid;
-      grid-template-columns: 1fr 1fr;
-      gap: 24px;
+      grid-template-rows: auto 1fr;
+      gap: var(--space-6);
+      background:
+        radial-gradient(circle at 12% 88%, color-mix(in srgb, var(--brand-quaternary) 20%, transparent), transparent 32%),
+        var(--surface-0);
     }
 
-    .control {
-      padding: 24px;
-      background: rgba(124, 92, 255, 0.08);
-      border: 1px solid rgba(124, 92, 255, 0.2);
-      border-radius: 10px;
+    header {
+      display: flex;
+      justify-content: space-between;
+      gap: var(--space-6);
+      align-items: end;
+      border-bottom: 1px solid var(--border);
+      padding-bottom: var(--space-5);
     }
 
-    .control-icon {
-      font-size: 2.5rem;
-      margin-bottom: 12px;
+    .eyebrow {
+      margin: 0 0 var(--space-3);
+      color: var(--brand-primary);
+      font-size: 0.78rem;
+      font-weight: 800;
+      letter-spacing: 0.16em;
+      text-transform: uppercase;
     }
 
-    .control-title {
-      font-weight: 600;
-      margin-bottom: 6px;
-      color: #7c5cff;
+    h1 {
+      max-width: 720px;
+      margin: 0;
+      font-size: 3.8rem;
+      line-height: 1.02;
+      font-weight: 850;
     }
 
-    .control-desc {
-      color: #8b92a0;
-      font-size: 0.95rem;
+    .caption {
+      max-width: 360px;
+      color: var(--text-secondary);
       line-height: 1.5;
     }
 
-    .full-width {
-      grid-column: 1 / -1;
+    .token-grid {
+      display: grid;
+      grid-template-columns: repeat(4, minmax(0, 1fr));
+      gap: var(--space-4);
+      align-content: center;
     }
 
-    @media (max-width: 640px) {
-      .controls {
-        grid-template-columns: 1fr;
-      }
+    .token-card {
+      min-height: 11rem;
+      border: 1px solid var(--border);
+      border-radius: var(--radius-lg);
+      background: var(--surface-1);
+      padding: var(--space-5);
+      display: grid;
+      align-content: space-between;
+      gap: var(--space-4);
+    }
 
-      h2 {
-        font-size: 1.8rem;
-        margin-bottom: 40px;
-      }
+    .token-swatch {
+      height: 0.65rem;
+      border-radius: var(--radius-sm);
+      background: var(--brand-primary);
+    }
+
+    .token-card:nth-child(2) .token-swatch {
+      background: var(--brand-tertiary);
+    }
+
+    .token-card:nth-child(3) .token-swatch {
+      background: var(--warning);
+    }
+
+    .token-card:nth-child(4) .token-swatch {
+      background: var(--chart-5);
+    }
+
+    .token-card h2 {
+      margin: 0;
+      font-size: 1.1rem;
+    }
+
+    .token-card p {
+      margin: 0;
+      color: var(--text-secondary);
+      line-height: 1.5;
     }
 
     aside.notes {
       display: none;
     }
+
+    @media (max-width: 900px) {
+      body {
+        overflow: auto;
+      }
+
+      .slide {
+        height: auto;
+        min-height: 100vh;
+        padding: var(--space-6);
+      }
+
+      h1 {
+        font-size: 2.45rem;
+      }
+
+      header {
+        display: block;
+      }
+
+      .token-grid {
+        grid-template-columns: 1fr;
+      }
+    }
   </style>
 </head>
 
 <body>
-  <div class="container">
-    <h2>⌨️ Navigation Controls</h2>
-    <div class="controls">
-      <div class="control">
-        <div class="control-icon">→ ←</div>
-        <div class="control-title">Arrow Keys</div>
-        <div class="control-desc">Move between slides</div>
-      </div>
-      <div class="control">
-        <div class="control-icon">Space</div>
-        <div class="control-title">Spacebar</div>
-        <div class="control-desc">Next slide</div>
-      </div>
-      <div class="control">
-        <div class="control-icon">🖱️</div>
-        <div class="control-title">Click Edges</div>
-        <div class="control-desc">Click left/right to navigate</div>
-      </div>
-      <div class="control">
-        <div class="control-icon">📱</div>
-        <div class="control-title">Swipe</div>
-        <div class="control-desc">Swipe on mobile devices</div>
-      </div>
-      <div class="control full-width">
-        <div class="control-icon">🎬</div>
-        <div class="control-title">Z or F for Zen Mode</div>
-        <div class="control-desc">Enter fullscreen presentation mode. Press Esc to exit.</div>
-      </div>
-    </div>
-  </div>
+  <main class="slide">
+    <header>
+      <section>
+        <p class="eyebrow">Theme system</p>
+        <h1>Tokens define roles before components define appearance.</h1>
+      </section>
+      <p class="caption">Custom visual inspiration is useful only after it is translated into stable surface, text,
+        brand, semantic, and chart roles.</p>
+    </header>
+    <section class="token-grid" aria-label="Token roles">
+      <article class="token-card">
+        <div class="token-swatch"></div>
+        <h2>Neutral</h2>
+        <p>Surfaces, readable text, dividers, and hierarchy.</p>
+      </article>
+      <article class="token-card">
+        <div class="token-swatch"></div>
+        <h2>Brand</h2>
+        <p>Primary and supporting accents for visual identity.</p>
+      </article>
+      <article class="token-card">
+        <div class="token-swatch"></div>
+        <h2>Semantic</h2>
+        <p>Status colors remain understandable as success, warning, danger, and info.</p>
+      </article>
+      <article class="token-card">
+        <div class="token-swatch"></div>
+        <h2>Chart</h2>
+        <p>Data colors stay distinct on the selected background.</p>
+      </article>
+    </section>
+  </main>
 
-  <aside class="notes">
-    Emphasize the flexibility: you can navigate any way you want. Keyboard shortcuts are great for hands-free
-    presentation. The left and right edges are clickable—useful when you're far from the keyboard. Swipe support means
-    it works on mobile and tablets. Spacebar is the fastest way to advance during a real presentation.
-  </aside>
+  <aside class="notes">Use this slide to explain why token names matter. They let future updates change theme without
+    rewriting every component.</aside>
 </body>
 
 </html>

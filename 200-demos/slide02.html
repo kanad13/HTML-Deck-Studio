@@ -2,135 +2,185 @@
 <html lang="en">
 
 <head>
-  <meta charset="utf-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1">
-  <title>Get Started in 3 Steps</title>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>Standalone Slide Contract</title>
   <style>
-    * {
+    :root {
+      --surface-0: #0f172a;
+      --surface-1: #1a2332;
+      --surface-2: #233044;
+      --text-primary: #f1f5f9;
+      --text-secondary: #94a3b8;
+      --border: #334155;
+      --brand-primary: #06b6d4;
+      --brand-secondary: #22d3ee;
+      --brand-tertiary: #4ade80;
+      --brand-quaternary: #818cf8;
+      --success: #22c55e;
+      --warning: #f59e0b;
+      --danger: #f87171;
+      --info: #38bdf8;
+      --chart-1: #06b6d4;
+      --chart-2: #22d3ee;
+      --chart-3: #4ade80;
+      --chart-4: #f59e0b;
+      --chart-5: #818cf8;
+      --chart-6: #f87171;
+      --space-1: 0.25rem;
+      --space-2: 0.5rem;
+      --space-3: 0.75rem;
+      --space-4: 1rem;
+      --space-5: 1.5rem;
+      --space-6: 2rem;
+      --space-7: 3rem;
+      --space-8: 4rem;
+      --radius-sm: 0.5rem;
+      --radius-md: 0.9rem;
+      --radius-lg: 1.25rem;
+      --radius-xl: 1.75rem;
+      --shadow-soft: 0 24px 70px rgba(0, 0, 0, 0.35);
+    }
+
+    @page {
+      size: 16in 9in;
       margin: 0;
-      padding: 0;
+    }
+
+    * {
       box-sizing: border-box;
     }
 
     html,
     body {
+      margin: 0;
+      width: 100%;
       height: 100%;
-      background: linear-gradient(135deg, #252d3d 0%, #1a1f2e 100%);
-      color: #f5f6f8;
-      font-family: system-ui, -apple-system, sans-serif;
+      background: var(--surface-0);
+      color: var(--text-primary);
+      font-family: ui-sans-serif, system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
+      -webkit-print-color-adjust: exact;
+      print-color-adjust: exact;
     }
 
     body {
-      display: flex;
-      align-items: center;
-      justify-content: center;
-      padding: 40px;
+      overflow: hidden;
     }
 
-    .container {
-      max-width: 700px;
-    }
-
-    h2 {
-      font-size: clamp(2rem, 5vw, 3rem);
-      font-weight: 700;
-      margin-bottom: 50px;
-    }
-
-    .steps {
+    .slide {
+      width: 100vw;
+      height: 100vh;
+      padding: var(--space-7);
       display: grid;
-      gap: 32px;
-    }
-
-    .step {
-      display: grid;
-      grid-template-columns: 60px 1fr;
-      gap: 24px;
-      align-items: start;
-    }
-
-    .step-num {
-      width: 60px;
-      height: 60px;
-      background: rgba(124, 92, 255, 0.2);
-      border: 2px solid #7c5cff;
-      border-radius: 999px;
-      display: flex;
+      grid-template-columns: minmax(0, 0.8fr) minmax(0, 1.2fr);
+      gap: var(--space-7);
       align-items: center;
-      justify-content: center;
-      font-weight: 700;
-      font-size: 1.5rem;
-      color: #7c5cff;
-      flex-shrink: 0;
+      background: linear-gradient(135deg, var(--surface-0), var(--surface-1));
     }
 
-    .step-content h3 {
-      font-size: 1.25rem;
-      margin-bottom: 8px;
-      color: #f5f6f8;
+    .eyebrow {
+      margin: 0 0 var(--space-4);
+      color: var(--brand-primary);
+      font-size: 0.78rem;
+      font-weight: 800;
+      letter-spacing: 0.16em;
+      text-transform: uppercase;
     }
 
-    .step-content p {
-      color: #8b92a0;
+    h1 {
+      margin: 0;
+      font-size: 4.3rem;
+      line-height: 1;
+      font-weight: 850;
+    }
+
+    .body {
+      margin: var(--space-5) 0 0;
+      color: var(--text-secondary);
+      font-size: 1.15rem;
       line-height: 1.6;
-      font-size: 1rem;
     }
 
-    @media (max-width: 640px) {
-      .step {
-        grid-template-columns: 50px 1fr;
-      }
+    .contract-list {
+      display: grid;
+      gap: var(--space-3);
+      margin: 0;
+      padding: 0;
+      list-style: none;
+    }
 
-      .step-num {
-        width: 50px;
-        height: 50px;
-      }
+    .contract-list li {
+      display: grid;
+      grid-template-columns: 2.5rem 1fr;
+      gap: var(--space-4);
+      align-items: start;
+      border: 1px solid var(--border);
+      border-radius: var(--radius-lg);
+      background: var(--surface-1);
+      padding: var(--space-4);
+    }
 
-      h2 {
-        font-size: 1.8rem;
-        margin-bottom: 40px;
-      }
+    .index {
+      color: var(--brand-secondary);
+      font-weight: 850;
+      font-variant-numeric: tabular-nums;
+    }
+
+    .contract-list strong {
+      display: block;
+      margin-bottom: var(--space-1);
+    }
+
+    .contract-list span:last-child {
+      color: var(--text-secondary);
+      line-height: 1.45;
     }
 
     aside.notes {
       display: none;
     }
+
+    @media (max-width: 900px) {
+      body {
+        overflow: auto;
+      }
+
+      .slide {
+        height: auto;
+        min-height: 100vh;
+        grid-template-columns: 1fr;
+        padding: var(--space-6);
+      }
+
+      h1 {
+        font-size: 2.55rem;
+      }
+    }
   </style>
 </head>
 
 <body>
-  <div class="container">
-    <h2>🎯 Get Started in 3 Steps</h2>
-    <div class="steps">
-      <div class="step">
-        <div class="step-num">1</div>
-        <div class="step-content">
-          <h3>Name &amp; Sort Files</h3>
-          <p>Use clear names like slide01.html, slide02.html. The viewer sorts them naturally.</p>
-        </div>
-      </div>
-      <div class="step">
-        <div class="step-num">2</div>
-        <div class="step-content">
-          <h3>Each File is Independent</h3>
-          <p>Every slide is a complete HTML document. Style, script, and customize freely.</p>
-        </div>
-      </div>
-      <div class="step">
-        <div class="step-num">3</div>
-        <div class="step-content">
-          <h3>Re-Pick to Refresh</h3>
-          <p>Change slides anytime. Just open the deck again to load the latest files.</p>
-        </div>
-      </div>
-    </div>
-  </div>
+  <main class="slide">
+    <section>
+      <p class="eyebrow">Output rule</p>
+      <h1>Every slide carries what it needs.</h1>
+      <p class="body">The viewer should not need a build step, shared stylesheet, package manager, or server to display a
+        normal generated deck.</p>
+    </section>
+    <ol class="contract-list">
+      <li><span class="index">01</span><span><strong>Complete document</strong>DOCTYPE, language, viewport, title, style,
+          markup, and notes all live in the file.</span></li>
+      <li><span class="index">02</span><span><strong>Inline tokens</strong>Resolved token values are embedded inside each
+          slide by default.</span></li>
+      <li><span class="index">03</span><span><strong>Inline CSS</strong>Layout CSS consumes tokens instead of ad hoc
+          colors.</span></li>
+      <li><span class="index">04</span><span><strong>Local assets only</strong>Optional assets stay beside the deck and are
+          selected by the user.</span></li>
+    </ol>
+  </main>
 
-  <aside class="notes">
-    Walk through the workflow: File naming is important—use natural sort order like slide01, slide02, etc. Each slide is
-    completely independent, so you can edit or regenerate slides without affecting others. Refreshing the deck is easy:
-    just re-open the viewer and pick the folder again. This makes it perfect for rapid iteration with AI agents.
-  </aside>
+  <aside class="notes">Stress that standalone means operational portability. It does not mean every deck must avoid local
+    assets, but the default should be fully embedded HTML and CSS.</aside>
 </body>
 
 </html>

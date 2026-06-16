@@ -80,6 +80,8 @@ When creating a custom token pack:
 - embed token definitions and CSS inline in each slide by default
 - create `deck-context.md`
 - keep slides scannable and locally editable
+- when PDF export matters, include print-friendly sizing and exact colour rendering hints from the output contract
+- validate generated output with `python3 600-tools/validate_deck.py 500-output/<deck-name>` when working from the repo root
 
 ## Maintenance workflow
 
@@ -122,6 +124,20 @@ Update `deck-context.md` with:
 - what assumptions were introduced
 - any unresolved follow-up items
 - theme changes, if any
+
+### 5. Recheck output
+
+After updating slides, run the deck validator when practical:
+
+```bash
+python3 600-tools/validate_deck.py 500-output/<deck-name>
+```
+
+If the viewer behavior changed too, run the full repo checks from the root:
+
+```bash
+python3 600-tools/run_checks.py
+```
 
 ## Authoring priorities
 

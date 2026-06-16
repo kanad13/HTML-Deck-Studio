@@ -2,131 +2,182 @@
 <html lang="en">
 
 <head>
-  <meta charset="utf-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1">
-  <title>Performance Metrics</title>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>Quality Gates</title>
   <style>
-    * {
+    :root {
+      --surface-0: #0f172a;
+      --surface-1: #1a2332;
+      --surface-2: #233044;
+      --text-primary: #f1f5f9;
+      --text-secondary: #94a3b8;
+      --border: #334155;
+      --brand-primary: #06b6d4;
+      --brand-secondary: #22d3ee;
+      --brand-tertiary: #4ade80;
+      --brand-quaternary: #818cf8;
+      --success: #22c55e;
+      --warning: #f59e0b;
+      --danger: #f87171;
+      --info: #38bdf8;
+      --chart-1: #06b6d4;
+      --chart-2: #22d3ee;
+      --chart-3: #4ade80;
+      --chart-4: #f59e0b;
+      --chart-5: #818cf8;
+      --chart-6: #f87171;
+      --space-1: 0.25rem;
+      --space-2: 0.5rem;
+      --space-3: 0.75rem;
+      --space-4: 1rem;
+      --space-5: 1.5rem;
+      --space-6: 2rem;
+      --space-7: 3rem;
+      --space-8: 4rem;
+      --radius-sm: 0.5rem;
+      --radius-md: 0.9rem;
+      --radius-lg: 1.25rem;
+      --radius-xl: 1.75rem;
+      --shadow-soft: 0 24px 70px rgba(0, 0, 0, 0.35);
+    }
+
+    @page {
+      size: 16in 9in;
       margin: 0;
-      padding: 0;
+    }
+
+    * {
       box-sizing: border-box;
     }
 
     html,
     body {
+      margin: 0;
+      width: 100%;
       height: 100%;
-      background: linear-gradient(135deg, #141820 0%, #1a1f2e 100%);
-      color: #f5f6f8;
-      font-family: system-ui, -apple-system, sans-serif;
+      background: var(--surface-0);
+      color: var(--text-primary);
+      font-family: ui-sans-serif, system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
+      -webkit-print-color-adjust: exact;
+      print-color-adjust: exact;
     }
 
     body {
-      display: flex;
-      align-items: center;
-      justify-content: center;
-      padding: 40px;
+      overflow: hidden;
     }
 
-    .container {
-      max-width: 800px;
-    }
-
-    h2 {
-      font-size: clamp(2rem, 5vw, 3rem);
-      font-weight: 700;
-      margin-bottom: 50px;
-      text-align: center;
-    }
-
-    .stats {
+    .slide {
+      width: 100vw;
+      height: 100vh;
+      padding: var(--space-7);
       display: grid;
-      grid-template-columns: 1fr 1fr 1fr;
-      gap: 24px;
-      margin-bottom: 40px;
+      grid-template-rows: auto 1fr;
+      gap: var(--space-6);
+      background: var(--surface-0);
     }
 
-    .stat-card {
-      padding: 28px 20px;
-      background: rgba(124, 92, 255, 0.08);
-      border: 1px solid rgba(124, 92, 255, 0.2);
-      border-radius: 10px;
-      text-align: center;
-    }
-
-    .stat-number {
-      font-size: 2.5rem;
-      font-weight: 700;
-      color: #7c5cff;
-      margin-bottom: 8px;
-    }
-
-    .stat-label {
-      color: #8b92a0;
-      font-size: 0.9rem;
+    .eyebrow {
+      margin: 0 0 var(--space-3);
+      color: var(--brand-primary);
+      font-size: 0.78rem;
+      font-weight: 800;
+      letter-spacing: 0.16em;
       text-transform: uppercase;
-      letter-spacing: 0.05em;
     }
 
-    .insight {
-      padding: 24px;
-      background: rgba(124, 92, 255, 0.1);
-      border-left: 3px solid #7c5cff;
-      border-radius: 6px;
-      text-align: center;
-    }
-
-    .insight p {
-      color: #c5cad1;
-      line-height: 1.6;
+    h1 {
       margin: 0;
+      max-width: 900px;
+      font-size: 4rem;
+      line-height: 1.02;
+      font-weight: 850;
     }
 
-    @media (max-width: 640px) {
-      .stats {
-        grid-template-columns: 1fr;
-      }
+    .check-grid {
+      display: grid;
+      grid-template-columns: repeat(2, minmax(0, 1fr));
+      gap: var(--space-4);
+      align-content: center;
+    }
 
-      h2 {
-        font-size: 1.8rem;
-        margin-bottom: 40px;
-      }
+    .check {
+      border: 1px solid var(--border);
+      border-radius: var(--radius-lg);
+      background: var(--surface-1);
+      padding: var(--space-5);
+      display: grid;
+      grid-template-columns: 2rem 1fr;
+      gap: var(--space-4);
+    }
+
+    .mark {
+      width: 2rem;
+      height: 2rem;
+      border-radius: var(--radius-xl);
+      background: color-mix(in srgb, var(--success) 22%, var(--surface-2));
+      color: var(--success);
+      display: grid;
+      place-items: center;
+      font-weight: 850;
+    }
+
+    .check strong {
+      display: block;
+      margin-bottom: var(--space-1);
+    }
+
+    .check span:last-child {
+      color: var(--text-secondary);
+      line-height: 1.45;
     }
 
     aside.notes {
       display: none;
     }
+
+    @media (max-width: 900px) {
+      body {
+        overflow: auto;
+      }
+
+      .slide {
+        height: auto;
+        min-height: 100vh;
+        padding: var(--space-6);
+      }
+
+      h1 {
+        font-size: 2.5rem;
+      }
+
+      .check-grid {
+        grid-template-columns: 1fr;
+      }
+    }
   </style>
 </head>
 
 <body>
-  <div class="container">
-    <h2>📈 Performance Metrics</h2>
-    <div class="stats">
-      <div class="stat-card">
-        <div class="stat-number">45KB</div>
-        <div class="stat-label">Single File</div>
-      </div>
-      <div class="stat-card">
-        <div class="stat-number">0ms</div>
-        <div class="stat-label">Load Time</div>
-      </div>
-      <div class="stat-card">
-        <div class="stat-number">∞</div>
-        <div class="stat-label">Offline Ready</div>
-      </div>
-    </div>
-    <div class="insight">
-      <p><strong>Zero dependencies.</strong> Everything works in your browser. No servers, build steps, or external
-        libraries. Just open the file and go.</p>
-    </div>
-  </div>
+  <main class="slide">
+    <header>
+      <p class="eyebrow">Quality gates</p>
+      <h1>Generated decks need checks that match the contract.</h1>
+    </header>
+    <section class="check-grid" aria-label="Quality checks">
+      <article class="check"><span class="mark">1</span><span><strong>Validate structure</strong>Check naming, doctype,
+          titles, notes, inline CSS, and token names.</span></article>
+      <article class="check"><span class="mark">2</span><span><strong>Review visuals</strong>Open the viewer, inspect
+          light and dark chrome, and confirm overview and notes.</span></article>
+      <article class="check"><span class="mark">3</span><span><strong>Check theme discipline</strong>Keep raw colors in
+          token sections and use tokens in components.</span></article>
+      <article class="check"><span class="mark">4</span><span><strong>Record context</strong>Update deck-context.md when
+          narrative, theme, or source assumptions change.</span></article>
+    </section>
+  </main>
 
-  <aside class="notes">
-    Talk about why this lightweight approach matters. The entire viewer is only 45KB—fits on any device, loads
-    instantly, no bloat. It loads with zero delay because there's no network call, no build step, no compilation. It's
-    ready to work offline from the moment you open the file. Compare this to web-based presentation tools that need
-    accounts, internet connectivity, and load animations. This is the efficiency pitch.
-  </aside>
+  <aside class="notes">This slide tees up why the repo now has validation tooling and a browser smoke test path. The
+    standards should be executable where practical.</aside>
 </body>
 
 </html>

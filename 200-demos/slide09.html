@@ -2,124 +2,173 @@
 <html lang="en">
 
 <head>
-  <meta charset="utf-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1">
-  <title>Full HTML Freedom</title>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>Optional PDF Export</title>
   <style>
-    * {
+    :root {
+      --surface-0: #0f172a;
+      --surface-1: #1a2332;
+      --surface-2: #233044;
+      --text-primary: #f1f5f9;
+      --text-secondary: #94a3b8;
+      --border: #334155;
+      --brand-primary: #06b6d4;
+      --brand-secondary: #22d3ee;
+      --brand-tertiary: #4ade80;
+      --brand-quaternary: #818cf8;
+      --success: #22c55e;
+      --warning: #f59e0b;
+      --danger: #f87171;
+      --info: #38bdf8;
+      --chart-1: #06b6d4;
+      --chart-2: #22d3ee;
+      --chart-3: #4ade80;
+      --chart-4: #f59e0b;
+      --chart-5: #818cf8;
+      --chart-6: #f87171;
+      --space-1: 0.25rem;
+      --space-2: 0.5rem;
+      --space-3: 0.75rem;
+      --space-4: 1rem;
+      --space-5: 1.5rem;
+      --space-6: 2rem;
+      --space-7: 3rem;
+      --space-8: 4rem;
+      --radius-sm: 0.5rem;
+      --radius-md: 0.9rem;
+      --radius-lg: 1.25rem;
+      --radius-xl: 1.75rem;
+      --shadow-soft: 0 24px 70px rgba(0, 0, 0, 0.35);
+    }
+
+    @page {
+      size: 16in 9in;
       margin: 0;
-      padding: 0;
+    }
+
+    * {
       box-sizing: border-box;
     }
 
     html,
     body {
+      margin: 0;
+      width: 100%;
       height: 100%;
-      background: linear-gradient(135deg, #1a1f2e 0%, #252d3d 100%);
-      color: #f5f6f8;
-      font-family: system-ui, -apple-system, sans-serif;
+      background: var(--surface-0);
+      color: var(--text-primary);
+      font-family: ui-sans-serif, system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
+      -webkit-print-color-adjust: exact;
+      print-color-adjust: exact;
     }
 
     body {
-      display: flex;
+      overflow: hidden;
+    }
+
+    .slide {
+      width: 100vw;
+      height: 100vh;
+      padding: var(--space-7);
+      display: grid;
+      grid-template-columns: minmax(0, 0.9fr) minmax(0, 1.1fr);
+      gap: var(--space-7);
       align-items: center;
-      justify-content: center;
-      padding: 40px;
+      background:
+        radial-gradient(circle at 12% 14%, color-mix(in srgb, var(--brand-tertiary) 18%, transparent), transparent 30%),
+        linear-gradient(135deg, var(--surface-0), var(--surface-1));
     }
 
-    .container {
-      max-width: 720px;
+    .eyebrow {
+      margin: 0 0 var(--space-4);
+      color: var(--brand-primary);
+      font-size: 0.78rem;
+      font-weight: 800;
+      letter-spacing: 0.16em;
+      text-transform: uppercase;
     }
 
-    h2 {
-      font-size: clamp(2rem, 5vw, 3rem);
-      font-weight: 700;
-      margin-bottom: 40px;
-      text-align: center;
+    h1 {
+      margin: 0;
+      font-size: 4.3rem;
+      line-height: 1;
+      font-weight: 850;
     }
 
-    .code-block {
-      background: rgba(0, 0, 0, 0.4);
-      border: 1px solid rgba(124, 92, 255, 0.2);
-      border-radius: 10px;
-      padding: 24px;
-      margin-bottom: 24px;
-      overflow-x: auto;
+    .body {
+      margin: var(--space-5) 0 0;
+      color: var(--text-secondary);
+      font-size: 1.14rem;
+      line-height: 1.6;
+    }
+
+    .command-panel {
+      border: 1px solid var(--border);
+      border-radius: var(--radius-xl);
+      background: var(--surface-1);
+      box-shadow: var(--shadow-soft);
+      padding: var(--space-6);
+    }
+
+    .command-panel h2 {
+      margin: 0 0 var(--space-4);
+      font-size: 1.15rem;
+      color: var(--brand-secondary);
     }
 
     pre {
-      font-family: 'SF Mono', Monaco, Menlo, monospace;
-      font-size: 0.85rem;
-      line-height: 1.6;
-      color: #a8b5ff;
-    }
-
-    .keyword {
-      color: #7c5cff;
-      font-weight: 600;
-    }
-
-    .string {
-      color: #80d4ff;
-    }
-
-    .comment {
-      color: #6f7683;
-      font-style: italic;
-    }
-
-    .highlight-box {
-      padding: 20px;
-      background: rgba(124, 92, 255, 0.1);
-      border-left: 3px solid #7c5cff;
-      border-radius: 6px;
-    }
-
-    .highlight-box p {
-      color: #c5cad1;
-      line-height: 1.6;
       margin: 0;
-      font-size: 0.95rem;
+      white-space: pre-wrap;
+      color: var(--text-primary);
+      line-height: 1.65;
+      font-family: ui-monospace, SFMono-Regular, Consolas, monospace;
+      font-size: 0.92rem;
     }
 
-    @media (max-width: 640px) {
-      h2 {
-        font-size: 1.8rem;
-        margin-bottom: 30px;
-      }
-
-      pre {
-        font-size: 0.75rem;
-      }
+    code {
+      color: var(--text-primary);
     }
 
     aside.notes {
       display: none;
     }
+
+    @media (max-width: 900px) {
+      body {
+        overflow: auto;
+      }
+
+      .slide {
+        height: auto;
+        min-height: 100vh;
+        grid-template-columns: 1fr;
+        padding: var(--space-6);
+      }
+
+      h1 {
+        font-size: 2.55rem;
+      }
+    }
   </style>
 </head>
 
 <body>
-  <div class="container">
-    <h2>💻 Full HTML Freedom</h2>
-    <div class="code-block">
-      <pre><span class="keyword">&lt;aside</span> <span class="keyword">class</span>=<span class="string">"notes"</span><span class="keyword">&gt;</span>
-  Speaker notes hidden until you press N
-<span class="keyword">&lt;/aside&gt;</span>
+  <main class="slide">
+    <section>
+      <p class="eyebrow">Optional toolchain</p>
+      <h1>PDF export belongs outside normal viewer use.</h1>
+      <p class="body">The core viewer stays dependency-free. Export can use an explicit Python environment with
+        Playwright and Chromium because it is a separate production task.</p>
+    </section>
+    <section class="command-panel" aria-label="PDF export commands">
+      <h2>One command after setup</h2>
+      <pre><code>python3 600-tools/export_pdf.py 200-demos --out demo.pdf</code></pre>
+    </section>
+  </main>
 
-<span class="keyword">&lt;style&gt;</span>
-  body { background: linear-gradient(...); }
-  .chart { display: grid; gap: 12px; }
-<span class="keyword">&lt;/style&gt;</span>
-
-<span class="keyword">&lt;canvas</span> <span class="keyword">id</span>=<span class="string">"chart"</span><span class="keyword">&gt;&lt;/canvas&gt;</span></pre>
-    </div>
-    <div class="highlight-box">
-      <p><strong>Every slide is a complete HTML document.</strong> Use CSS, JavaScript, Canvas, SVG, embedded media,
-        custom fonts—anything your browser supports. The viewer just loads each slide in its own isolated iframe.</p>
-    </div>
-  </div>
-
+  <aside class="notes">Position PDF export as an optional toolchain exception. It should never become a requirement for
+    opening or presenting the viewer.</aside>
 </body>
 
 </html>

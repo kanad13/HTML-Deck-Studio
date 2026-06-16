@@ -53,6 +53,22 @@ Each slide should include:
 - slide markup
 - optional `<aside class="notes">`
 
+When PDF export is expected, each slide should also include print-friendly sizing and exact colour rendering hints, for
+example:
+
+```css
+@page {
+  size: 16in 9in;
+  margin: 0;
+}
+
+html,
+body {
+  -webkit-print-color-adjust: exact;
+  print-color-adjust: exact;
+}
+```
+
 ## Theme and token contract
 
 Each deck should use one clear theme strategy:
@@ -82,6 +98,31 @@ By default, custom token values should be embedded inline in every standalone sl
 Do not create a shared deck-level CSS file unless the user explicitly asks for that structure.
 
 This keeps each slide portable, editable, and compatible with the local viewer.
+
+## Optional local assets
+
+Standalone slides are preferred. If a deck needs supporting assets, keep them inside the deck folder, preferably in an
+`assets/` subfolder.
+
+Rules:
+
+- asset references should be relative paths such as `assets/chart.png`;
+- do not depend on remote images, scripts, fonts, or stylesheets;
+- when using the viewer, select the deck folder so supporting assets are included in the browser's selected files;
+- do not use deck-local assets as a substitute for a shared CSS dependency unless the user explicitly asked for that
+  structure.
+
+## Optional PDF export
+
+PDF export is allowed as an optional toolchain outside normal viewer use.
+
+Recommended command:
+
+```bash
+python3 600-tools/export_pdf.py 500-output/<deck-name> --out 500-output/<deck-name>.pdf
+```
+
+This does not change the viewer runtime contract. Opening and presenting `100-viewer.html` must remain dependency-free.
 
 ## Deck consistency rules
 

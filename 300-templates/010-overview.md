@@ -56,4 +56,5 @@ In all cases, final slides should use the canonical token contract.
 - Build the actual slides as standalone HTML files.
 - Embed all token values and CSS inside each standalone slide unless the user explicitly asks for a different structure.
 - Output the deck in `500-output/` together with `deck-context.md`.
+- Validate output with `python3 600-tools/validate_deck.py 500-output/<deck-name>` when working from the repo root.
 - On later revisions, update both the slides and the context sidecar.

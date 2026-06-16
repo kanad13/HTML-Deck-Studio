@@ -2,151 +2,188 @@
 <html lang="en">
 
 <head>
-  <meta charset="utf-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1">
-  <title>Advanced Features</title>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>Theme Intake Flow</title>
   <style>
-    * {
+    :root {
+      --surface-0: #0f172a;
+      --surface-1: #1a2332;
+      --surface-2: #233044;
+      --text-primary: #f1f5f9;
+      --text-secondary: #94a3b8;
+      --border: #334155;
+      --brand-primary: #06b6d4;
+      --brand-secondary: #22d3ee;
+      --brand-tertiary: #4ade80;
+      --brand-quaternary: #818cf8;
+      --success: #22c55e;
+      --warning: #f59e0b;
+      --danger: #f87171;
+      --info: #38bdf8;
+      --chart-1: #06b6d4;
+      --chart-2: #22d3ee;
+      --chart-3: #4ade80;
+      --chart-4: #f59e0b;
+      --chart-5: #818cf8;
+      --chart-6: #f87171;
+      --space-1: 0.25rem;
+      --space-2: 0.5rem;
+      --space-3: 0.75rem;
+      --space-4: 1rem;
+      --space-5: 1.5rem;
+      --space-6: 2rem;
+      --space-7: 3rem;
+      --space-8: 4rem;
+      --radius-sm: 0.5rem;
+      --radius-md: 0.9rem;
+      --radius-lg: 1.25rem;
+      --radius-xl: 1.75rem;
+      --shadow-soft: 0 24px 70px rgba(0, 0, 0, 0.35);
+    }
+
+    @page {
+      size: 16in 9in;
       margin: 0;
-      padding: 0;
+    }
+
+    * {
       box-sizing: border-box;
     }
 
     html,
     body {
+      margin: 0;
+      width: 100%;
       height: 100%;
-      background: linear-gradient(135deg, #1a1f2e 0%, #252d3d 100%);
-      color: #f5f6f8;
-      font-family: system-ui, -apple-system, sans-serif;
+      background: var(--surface-0);
+      color: var(--text-primary);
+      font-family: ui-sans-serif, system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
+      -webkit-print-color-adjust: exact;
+      print-color-adjust: exact;
     }
 
     body {
-      display: flex;
-      align-items: center;
-      justify-content: center;
-      padding: 40px;
+      overflow: hidden;
     }
 
-    .container {
-      max-width: 680px;
-      text-align: center;
-    }
-
-    h2 {
-      font-size: clamp(2rem, 5vw, 3rem);
-      font-weight: 700;
-      margin-bottom: 40px;
-    }
-
-    .feature-grid {
+    .slide {
+      width: 100vw;
+      height: 100vh;
+      padding: var(--space-7);
       display: grid;
-      grid-template-columns: 1fr 1fr;
-      gap: 24px;
-      margin-bottom: 30px;
+      grid-template-columns: minmax(0, 0.75fr) minmax(0, 1.25fr);
+      gap: var(--space-7);
+      align-items: center;
+      background: var(--surface-0);
     }
 
-    .feature-card {
-      padding: 28px 20px;
-      background: rgba(124, 92, 255, 0.08);
-      border: 1px solid rgba(124, 92, 255, 0.2);
-      border-radius: 10px;
-      text-align: center;
-    }
-
-    .feature-icon {
-      font-size: 2.2rem;
-      margin-bottom: 12px;
-      display: block;
-    }
-
-    .feature-title {
-      font-weight: 600;
-      color: #7c5cff;
-      margin-bottom: 8px;
-      font-size: 0.95rem;
+    .eyebrow {
+      margin: 0 0 var(--space-4);
+      color: var(--brand-primary);
+      font-size: 0.78rem;
+      font-weight: 800;
+      letter-spacing: 0.16em;
       text-transform: uppercase;
-      letter-spacing: 0.05em;
     }
 
-    .feature-desc {
-      color: #8b92a0;
-      font-size: 0.9rem;
-      line-height: 1.5;
+    h1 {
+      margin: 0;
+      font-size: 4.3rem;
+      line-height: 1;
+      font-weight: 850;
     }
 
-    .highlight-box {
-      padding: 24px;
-      background: rgba(124, 92, 255, 0.12);
-      border-left: 3px solid #7c5cff;
-      border-radius: 6px;
-      text-align: left;
-    }
-
-    .highlight-box strong {
-      color: #7c5cff;
-      display: block;
-      margin-bottom: 6px;
-    }
-
-    .highlight-box span {
-      color: #8b92a0;
+    .body {
+      margin: var(--space-5) 0 0;
+      color: var(--text-secondary);
+      font-size: 1.14rem;
       line-height: 1.6;
     }
 
-    @media (max-width: 640px) {
-      .feature-grid {
-        grid-template-columns: 1fr;
-      }
+    .flow {
+      display: grid;
+      gap: var(--space-4);
+      position: relative;
+    }
 
-      h2 {
-        font-size: 1.8rem;
-        margin-bottom: 30px;
-      }
+    .step {
+      display: grid;
+      grid-template-columns: 4rem 1fr;
+      gap: var(--space-4);
+      align-items: center;
+      border: 1px solid var(--border);
+      border-radius: var(--radius-lg);
+      background: linear-gradient(135deg, var(--surface-1), var(--surface-2));
+      padding: var(--space-5);
+    }
+
+    .step-number {
+      width: 4rem;
+      height: 4rem;
+      border-radius: var(--radius-xl);
+      display: grid;
+      place-items: center;
+      background: color-mix(in srgb, var(--brand-primary) 20%, var(--surface-0));
+      color: var(--brand-secondary);
+      font-weight: 850;
+    }
+
+    .step strong {
+      display: block;
+      margin-bottom: var(--space-1);
+    }
+
+    .step span:last-child {
+      color: var(--text-secondary);
+      line-height: 1.45;
     }
 
     aside.notes {
       display: none;
     }
+
+    @media (max-width: 900px) {
+      body {
+        overflow: auto;
+      }
+
+      .slide {
+        height: auto;
+        min-height: 100vh;
+        grid-template-columns: 1fr;
+        padding: var(--space-6);
+      }
+
+      h1 {
+        font-size: 2.55rem;
+      }
+    }
   </style>
 </head>
 
 <body>
-  <div class="container">
-    <h2>📊 Advanced Features</h2>
-    <div class="feature-grid">
-      <div class="feature-card">
-        <span class="feature-icon">👁️</span>
-        <div class="feature-title">Overview</div>
-        <div class="feature-desc">Grid view of all slides for quick navigation</div>
-      </div>
-      <div class="feature-card">
-        <span class="feature-icon">📝</span>
-        <div class="feature-title">Speaker Notes</div>
-        <div class="feature-desc">Private talking points beside your slides</div>
-      </div>
-      <div class="feature-card">
-        <span class="feature-icon">🎙️</span>
-        <div class="feature-title">Presenter View</div>
-        <div class="feature-desc">Separate window with notes and timer</div>
-      </div>
-      <div class="feature-card">
-        <span class="feature-icon">🌙</span>
-        <div class="feature-title">Theme Toggle</div>
-        <div class="feature-desc">Switch between dark and light modes</div>
-      </div>
-    </div>
-    <div class="highlight-box">
-      <strong>🔐 Your Privacy</strong>
-      <span>All slides stay on your machine. Works completely offline. Nothing is uploaded or shared.</span>
-    </div>
-  </div>
+  <main class="slide">
+    <section>
+      <p class="eyebrow">Custom themes</p>
+      <h1>Inspiration is input, not implementation.</h1>
+      <p class="body">Brand names, screenshots, URLs, mood words, and hex values should be interpreted first, then mapped
+        into the canonical token contract.</p>
+    </section>
+    <section class="flow" aria-label="Theme intake workflow">
+      <article class="step"><span class="step-number">1</span><span><strong>Interpret the source</strong>Identify visual
+          intent, audience fit, and theme mode.</span></article>
+      <article class="step"><span class="step-number">2</span><span><strong>Map token roles</strong>Assign surface, text,
+          brand, semantic, and chart values.</span></article>
+      <article class="step"><span class="step-number">3</span><span><strong>Check readability</strong>Adjust derived values
+          when exact source colors do not work.</span></article>
+      <article class="step"><span class="step-number">4</span><span><strong>Document decisions</strong>Record source,
+          rationale, and tradeoffs in deck-context.md.</span></article>
+    </section>
+  </main>
 
-  <aside class="notes">
-    Go deeper into the advanced features. Overview (press O) lets you jump around the deck in any order—great for
-    handling questions. Speaker Notes (press N) keep your talking points private. Presenter Mode (press P) opens a
-    separate window on a second monitor with your notes, a timer, and slide navigation. Theme toggle lets you adapt to
-    the room's lighting. All of these work without any external tools or services.
-  </aside>
+  <aside class="notes">Make the distinction explicit: external references can inspire the token pack, but generated slide
+    components should not copy arbitrary external CSS.</aside>
 </body>
 
 </html>

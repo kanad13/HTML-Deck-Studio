@@ -2,150 +2,204 @@
 <html lang="en">
 
 <head>
-  <meta charset="utf-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1">
-  <title>Keyboard Shortcuts</title>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>Layouts Serve the Message</title>
   <style>
-    * {
+    :root {
+      --surface-0: #0f172a;
+      --surface-1: #1a2332;
+      --surface-2: #233044;
+      --text-primary: #f1f5f9;
+      --text-secondary: #94a3b8;
+      --border: #334155;
+      --brand-primary: #06b6d4;
+      --brand-secondary: #22d3ee;
+      --brand-tertiary: #4ade80;
+      --brand-quaternary: #818cf8;
+      --success: #22c55e;
+      --warning: #f59e0b;
+      --danger: #f87171;
+      --info: #38bdf8;
+      --chart-1: #06b6d4;
+      --chart-2: #22d3ee;
+      --chart-3: #4ade80;
+      --chart-4: #f59e0b;
+      --chart-5: #818cf8;
+      --chart-6: #f87171;
+      --space-1: 0.25rem;
+      --space-2: 0.5rem;
+      --space-3: 0.75rem;
+      --space-4: 1rem;
+      --space-5: 1.5rem;
+      --space-6: 2rem;
+      --space-7: 3rem;
+      --space-8: 4rem;
+      --radius-sm: 0.5rem;
+      --radius-md: 0.9rem;
+      --radius-lg: 1.25rem;
+      --radius-xl: 1.75rem;
+      --shadow-soft: 0 24px 70px rgba(0, 0, 0, 0.35);
+    }
+
+    @page {
+      size: 16in 9in;
       margin: 0;
-      padding: 0;
+    }
+
+    * {
       box-sizing: border-box;
     }
 
     html,
     body {
+      margin: 0;
+      width: 100%;
       height: 100%;
-      background: linear-gradient(135deg, #252d3d 0%, #1a1f2e 100%);
-      color: #f5f6f8;
-      font-family: system-ui, -apple-system, sans-serif;
+      background: var(--surface-0);
+      color: var(--text-primary);
+      font-family: ui-sans-serif, system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
+      -webkit-print-color-adjust: exact;
+      print-color-adjust: exact;
     }
 
     body {
-      display: flex;
-      align-items: center;
-      justify-content: center;
-      padding: 40px;
+      overflow: hidden;
     }
 
-    .container {
-      max-width: 720px;
-    }
-
-    h2 {
-      font-size: clamp(2rem, 5vw, 3rem);
-      font-weight: 700;
-      margin-bottom: 50px;
-      text-align: center;
-    }
-
-    .shortcuts {
+    .slide {
+      width: 100vw;
+      height: 100vh;
+      padding: var(--space-7);
       display: grid;
+      grid-template-rows: auto 1fr;
+      gap: var(--space-6);
+      background: linear-gradient(135deg, var(--surface-0), var(--surface-1));
+    }
+
+    .eyebrow {
+      margin: 0 0 var(--space-3);
+      color: var(--brand-primary);
+      font-size: 0.78rem;
+      font-weight: 800;
+      letter-spacing: 0.16em;
+      text-transform: uppercase;
+    }
+
+    h1 {
+      margin: 0;
+      font-size: 3.9rem;
+      line-height: 1.02;
+      font-weight: 850;
+    }
+
+    .layout-grid {
+      display: grid;
+      grid-template-columns: repeat(3, minmax(0, 1fr));
+      gap: var(--space-4);
+      align-content: center;
+    }
+
+    .layout-card {
+      border: 1px solid var(--border);
+      border-radius: var(--radius-lg);
+      background: var(--surface-1);
+      min-height: 13rem;
+      padding: var(--space-5);
+      display: grid;
+      gap: var(--space-4);
+      align-content: start;
+    }
+
+    .layout-card h2 {
+      margin: 0;
+      font-size: 1.15rem;
+    }
+
+    .layout-card p {
+      margin: 0;
+      color: var(--text-secondary);
+      line-height: 1.5;
+    }
+
+    .mini {
+      height: 4rem;
+      border-radius: var(--radius-md);
+      background: color-mix(in srgb, var(--brand-primary) 18%, var(--surface-2));
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: var(--space-2);
+      padding: var(--space-2);
+    }
+
+    .mini span {
+      border-radius: var(--radius-sm);
+      background: var(--surface-0);
+    }
+
+    .layout-card:nth-child(2) .mini {
       grid-template-columns: 1fr 1fr;
-      gap: 16px;
+      background: color-mix(in srgb, var(--brand-tertiary) 18%, var(--surface-2));
     }
 
-    .shortcut {
-      display: flex;
-      align-items: center;
-      justify-content: space-between;
-      padding: 14px 16px;
-      background: rgba(124, 92, 255, 0.08);
-      border: 1px solid rgba(124, 92, 255, 0.15);
-      border-radius: 8px;
-    }
-
-    .shortcut-label {
-      color: #8b92a0;
-      font-size: 0.95rem;
-    }
-
-    .shortcut-key {
-      display: inline-flex;
-      gap: 6px;
-      font-weight: 600;
-      color: #7c5cff;
-      font-family: monospace;
-      font-size: 0.85rem;
-    }
-
-    @media (max-width: 640px) {
-      .shortcuts {
-        grid-template-columns: 1fr;
-      }
-
-      h2 {
-        font-size: 1.8rem;
-        margin-bottom: 40px;
-      }
+    .layout-card:nth-child(3) .mini {
+      grid-template-columns: 1fr;
+      background: color-mix(in srgb, var(--brand-quaternary) 18%, var(--surface-2));
     }
 
     aside.notes {
       display: none;
     }
+
+    @media (max-width: 900px) {
+      body {
+        overflow: auto;
+      }
+
+      .slide {
+        height: auto;
+        min-height: 100vh;
+        padding: var(--space-6);
+      }
+
+      h1 {
+        font-size: 2.45rem;
+      }
+
+      .layout-grid {
+        grid-template-columns: 1fr;
+      }
+    }
   </style>
 </head>
 
 <body>
-  <div class="container">
-    <h2>⌨️ Keyboard Shortcuts</h2>
-    <div class="shortcuts">
-      <div class="shortcut">
-        <span class="shortcut-label">Next slide</span>
-        <span class="shortcut-key">→ / Space</span>
-      </div>
-      <div class="shortcut">
-        <span class="shortcut-label">Previous slide</span>
-        <span class="shortcut-key">←</span>
-      </div>
-      <div class="shortcut">
-        <span class="shortcut-label">First slide</span>
-        <span class="shortcut-key">Home</span>
-      </div>
-      <div class="shortcut">
-        <span class="shortcut-label">Last slide</span>
-        <span class="shortcut-key">End</span>
-      </div>
-      <div class="shortcut">
-        <span class="shortcut-label">Zen mode</span>
-        <span class="shortcut-key">Z / F</span>
-      </div>
-      <div class="shortcut">
-        <span class="shortcut-label">Overview</span>
-        <span class="shortcut-key">O</span>
-      </div>
-      <div class="shortcut">
-        <span class="shortcut-label">Speaker notes</span>
-        <span class="shortcut-key">N</span>
-      </div>
-      <div class="shortcut">
-        <span class="shortcut-label">Presenter window</span>
-        <span class="shortcut-key">P</span>
-      </div>
-      <div class="shortcut">
-        <span class="shortcut-label">Slide list</span>
-        <span class="shortcut-key">L</span>
-      </div>
-      <div class="shortcut">
-        <span class="shortcut-label">Theme toggle</span>
-        <span class="shortcut-key">M</span>
-      </div>
-      <div class="shortcut">
-        <span class="shortcut-label">Open deck</span>
-        <span class="shortcut-key">D</span>
-      </div>
-      <div class="shortcut">
-        <span class="shortcut-label">Help</span>
-        <span class="shortcut-key">H / ?</span>
-      </div>
-    </div>
-  </div>
+  <main class="slide">
+    <header>
+      <p class="eyebrow">Layout catalog</p>
+      <h1>Pick structures for communication jobs, not decoration.</h1>
+    </header>
+    <section class="layout-grid" aria-label="Layout examples">
+      <article class="layout-card">
+        <div class="mini"><span></span><span></span><span></span></div>
+        <h2>Compare</h2>
+        <p>Use columns when the audience needs contrast or tradeoffs.</p>
+      </article>
+      <article class="layout-card">
+        <div class="mini"><span></span><span></span></div>
+        <h2>Explain</h2>
+        <p>Use split layouts when a diagram and narrative depend on each other.</p>
+      </article>
+      <article class="layout-card">
+        <div class="mini"><span></span></div>
+        <h2>Emphasize</h2>
+        <p>Use bold statement slides when one implication should land clearly.</p>
+      </article>
+    </section>
+  </main>
 
-  <aside class="notes">
-    This is a reference slide. Quickly review the shortcuts during a Q&A or break. Point out that every action has both
-    a button and a keyboard shortcut. The shortcuts are designed to be intuitive—arrow keys for movement, Z for Zen
-    mode. You can display this slide on a projector for the audience so they know what's available. All shortcuts work
-    whether you're presenting or reviewing slides in the viewer.
-  </aside>
+  <aside class="notes">The catalog is intentionally structural. The completed slide still needs real CSS, tokens, and a
+    clear communication job.</aside>
 </body>
 
 </html>

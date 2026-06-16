@@ -4,12 +4,19 @@ This file shows the main layout shapes available to build real standalone slides
 
 Use these as structural patterns, not as complete files.
 
+Do not copy a snippet directly into output and call it done. A generated slide must still be a complete standalone HTML
+document with inline token definitions, inline CSS that consumes those tokens, slide markup, and optional speaker notes.
+
 ## Shared notes
 
 - Build the final result as a full standalone HTML slide.
 - Use tokens from the system files.
 - Add `aside.notes` only when useful.
 - Keep only the structure that helps the slide communicate clearly.
+- Add the CSS required to make the selected layout render correctly at 16:9 desktop presentation size and narrow mobile
+  widths.
+- Keep hardcoded colour values in the token definition section. Layout CSS should consume token names.
+- Check text fit, contrast, and hierarchy after content is inserted. The snippets below are not text-fit guarantees.
 
 ## 010 classic-title
 

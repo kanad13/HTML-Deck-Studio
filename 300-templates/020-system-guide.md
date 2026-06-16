@@ -77,6 +77,7 @@ Layouts and slide components should consume tokens, not arbitrary one-off colour
 - Embed token definitions and slide CSS inline in each slide by default.
 - Output them following `130-workflows/020-output-contract.md`.
 - Write or update `deck-context.md` using `130-workflows/040-maintenance-context.md`.
+- Validate the deck with `python3 600-tools/validate_deck.py 500-output/<deck-name>` when practical.
 
 ## Required token contract
 
@@ -166,3 +167,4 @@ Before considering a slide or deck done:
 - hierarchy is obvious
 - slides are readable without zooming in
 - output files follow the output contract
+- validator output is clean when the local validation tool is available
