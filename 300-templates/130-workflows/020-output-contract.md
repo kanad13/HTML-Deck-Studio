@@ -13,9 +13,9 @@ Example:
 ```
 500-output/
 └─ project-update-q3/
-   ├─ slide01.html
-   ├─ slide02.html
-   ├─ slide03.html
+   ├─ slide0100.html
+   ├─ slide0200.html
+   ├─ slide0300.html
    └─ deck-context.md
 ```
 
@@ -25,7 +25,7 @@ Do not place long-lived generated decks directly at the root of `500-output/` un
 
 Every generated deck should usually include:
 
-- `slide01.html`, `slide02.html`, `slide03.html`, ...
+- `slide0100.html`, `slide0200.html`, `slide0300.html`, ...
 - `deck-context.md`
 
 Optional:
@@ -34,9 +34,11 @@ Optional:
 
 ## Slide naming
 
-- Use zero padded numbering: `slide01.html`, `slide02.html`, `slide03.html`
-- keep numbering contiguous
-- Prefer stable names so future edits do not reorder the entire deck unnecessarily
+- Use zero-padded 4-digit numbers: `slide0100.html`, `slide0200.html`, `slide0300.html`, and so on.
+- This ensures consistent sorting in all file browsers and tools, even when decks grow beyond 999 slides.
+- Reserve gaps for inserts. For example, place a new framing slide between `slide0100.html` and `slide0200.html` at `slide0110.html` or `slide0150.html`.
+- Never renumber the whole deck merely to insert a slide. Stable filenames preserve the intended viewer and PDF order, reduce noisy diffs, and make future edits safe.
+- Keep the sequence numeric and strictly increasing. Record intentional additions in `deck-context.md`.
 
 ## Slide contract
 
@@ -52,6 +54,22 @@ Each slide should include:
 - inline CSS
 - slide markup
 - optional `<aside class="notes">`
+
+When PDF export is expected, each slide should also include print-friendly sizing and exact colour rendering hints, for
+example:
+
+```css
+@page {
+  size: 16in 9in;
+  margin: 0;
+}
+
+html,
+body {
+  -webkit-print-color-adjust: exact;
+  print-color-adjust: exact;
+}
+```
 
 ## Theme and token contract
 
@@ -82,6 +100,35 @@ By default, custom token values should be embedded inline in every standalone sl
 Do not create a shared deck-level CSS file unless the user explicitly asks for that structure.
 
 This keeps each slide portable, editable, and compatible with the local viewer.
+
+## Images and libraries
+
+Standalone slides are preferred.
+Embed images and external libraries directly in the slide when possible, for maximum portability.
+
+```html
+<body>
+  <script type="module">
+    import mermaid from "https://cdn.jsdelivr.net/npm/mermaid@11/dist/mermaid.esm.min.mjs";
+    mermaid.initialize({ startOnLoad: true });
+  </script>
+</body>
+```
+
+- This approach helps keep slides portable when they are moved or shared, as long as the CDN is accessible.
+- Document the external dependency in `deck-context.md`.
+
+## Optional PDF export
+
+PDF export is allowed as an optional toolchain outside normal viewer use.
+
+Recommended command:
+
+```bash
+python3 600-tools/export_pdf.py 500-output/<deck-name> --out 500-output/<deck-name>.pdf
+```
+
+This does not change the viewer runtime contract. Opening and presenting `100-viewer.html` must remain dependency-free.
 
 ## Deck consistency rules
 

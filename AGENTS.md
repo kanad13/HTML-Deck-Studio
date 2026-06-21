@@ -14,7 +14,6 @@ Future changes should preserve both contracts:
 
 - `100-viewer.html` must remain usable by opening it directly in a browser.
 - Do not require Python, Node, npm, a web server, a package manager, or a browser extension for normal viewer use.
-- Do not add external runtime dependencies, CDN scripts, web fonts, tracking, analytics, or remote assets.
 - Do not upload, sync, or transmit selected slide files anywhere.
 - Keep slide files isolated in iframes so one slide cannot break the viewer or another slide.
 - Keep the folder/file picker flow. Static HTML cannot scan arbitrary local folders without user selection.
@@ -36,6 +35,8 @@ Future changes should preserve both contracts:
 - Folder selection should continue to use `<input type="file" webkitdirectory directory multiple>`.
 - File fallback should continue to use a plain multi-file input.
 - Use `URL.createObjectURL(file)` for selected slide files and revoke old URLs when replacing a deck.
+- If selected slides reference deck-local assets, map those selected assets to object URLs in memory rather than reading
+  directly from arbitrary local paths.
 - Use `localStorage` only for lightweight preferences such as viewer theme and last slide number.
 - Treat drag-and-drop folder loading as a browser-dependent enhancement. Picker buttons must remain the reliable fallback.
 
@@ -54,9 +55,9 @@ Future changes should preserve both contracts:
 - `300-templates/` defines the authoring system, not viewer runtime behavior.
 - Use `300-templates/100-basic.html` as the default standalone slide scaffold.
 - Use `300-templates/110-systems/010-token-reference.md` as the canonical token contract.
-- Use `300-templates/110-systems/110-light-default.html` and `300-templates/110-systems/110-dark-default.html` as the two default complete token packs.
+- Use `300-templates/110-systems/100-light-default.html` and `300-templates/110-systems/110-dark-default.html` as the two default complete token packs.
 - Use `300-templates/110-systems/020-theme-intake-and-tokenization.md` when a user provides brand, company, screenshot, URL, mood, existing deck, industry, or hex colour inspiration.
-- Use `300-templates/130-workflows/` for deck creation, output, narrative arts, and maintenance context.
+- Use `300-templates/130-workflows/` for deck creation, output, narrative arcs, and maintenance context.
 
 ## Token and Theme Rules
 
@@ -90,7 +91,7 @@ Rules:
 ## Generated Deck Output Rules
 
 - Generated decks belong in `500-output/`, preferably one subfolder per deck.
-- Use zero-padded slide names such as `slide01.html`, `slide02.html`, `slide03.html`.
+- Use zero-padded 4-digit slide names: `slide0100.html`, `slide0200.html`, `slide0300.html`, and so on.
 - Each slide must be a complete standalone HTML document.
 - Each slide should include:
   - `<!DOCTYPE html>`;
@@ -102,6 +103,7 @@ Rules:
   - slide markup;
   - optional `<aside class="notes">`.
 - By default, embed all token values and CSS inside each slide.
+- External rendering libraries (such as Mermaid or Chart.js) may be embedded via CDN if documented in `deck-context.md`. This keeps slides portable when moved or shared.
 - Do not create or require a deck-level shared CSS file unless the user explicitly asks for it.
 - Every generated deck should usually include `deck-context.md`.
 
@@ -131,8 +133,16 @@ If visual style, token values, or theme source changes, update the theme brief i
 - Use section comments in `100-viewer.html` so future edits can find the right area quickly.
 - Prefer small, named functions over large anonymous blocks.
 - Avoid clever abstractions.
+- Keep `150-docs/` for human-facing docs. Number docs in intended reading order and keep
+  `150-docs/README.md` as the guide into that folder.
+- Keep `600-tools/` for optional repository tooling, checks, and PDF export. Normal viewer use must not depend on this
+  folder.
+- Keep Python requirement files under `600-tools/requirements/` so root-level files stay focused on primary repo entry
+  points.
 - If viewer behavior changes, update `README.md` in the same change.
 - If template, token, workflow, or output behavior changes, update the relevant files under `300-templates/` and update `README.md` when the user-facing behavior changes.
+- If a feature changes, update or add the relevant automated checks in the same change. Do not leave tests for a later
+  cleanup pass.
 
 ## Testing Expectations
 
@@ -140,9 +150,11 @@ Before considering a viewer change done:
 
 - Run a JavaScript syntax check by extracting the inline script from `100-viewer.html`.
 - Run `git diff --check`.
+- Run `python3 600-tools/run_checks.py`.
 - Open the viewer in a browser and inspect the landing page.
-- for UI changes, check both light and dark viewer themes.
+- For UI changes, check both light and dark viewer themes.
 - If deck behavior changes, test with a folder of at least two `.html` slides and one slide with `<aside class="notes">`.
+- Run `python3 600-tools/run_checks.py --browser` when Playwright development dependencies are installed.
 
 Before considering a template or generated-deck change done:
 
@@ -153,16 +165,22 @@ Before considering a template or generated-deck change done:
 - Check that semantic and chart colours remain understandable.
 - Check that `deck-context.md` records theme, narrative, and update decisions.
 - Check that output follows `300-templates/130-workflows/020-output-contract.md`.
+- Run `python3 600-tools/validate_deck.py <deck-folder>` when practical.
+
+Before considering a tooling, PDF export, or CI change done:
+
+- Update `600-tools/README.md` or `150-docs/130-development-and-tests.md` if commands, dependencies, or responsibilities
+  change.
+- Keep `.github/workflows/ci.yml` aligned with `python3 600-tools/run_checks.py --browser`; add required checks to
+  `600-tools/run_checks.py` first so local and CI behavior stay consistent.
+- For PDF export changes, export `200-demos` and verify the result is full-bleed with the expected page count.
 
 ## Things To Avoid
 
 - React, Vue, Svelte, Astro, Vite, Webpack, or similar tooling.
-- Markdown-to-slide pipelines inside this repo.
-- PDF export/conversion.
+- PDF export/conversion inside the normal viewer runtime. Optional offline export tooling may exist separately.
 - Server-side slide generation.
 - WebSocket presenter sync.
 - Service workers unless there is a very strong reason and the offline/file behavior is preserved.
-- External runtime assets, fonts, scripts, analytics, or tracking.
 - Shared CSS requirements for generated decks unless explicitly requested by the user.
 - Random hardcoded colour values in slide components.
-- Claiming official brand compliance unless the user provided official brand guidance.
