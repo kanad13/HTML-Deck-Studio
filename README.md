@@ -2,126 +2,178 @@
 
 **Portable presentations. No accounts. No servers. Files stay local.**
 
-HTML Deck Studio is a local-first presentation system for people who want to present using HTML files instead of PowerPoint or some other tool.
+## The Problem
+
+Presentation tools are built backward. The tool is the center. Your slides live inside it. You're stuck with what it can do, how it renders, and what happens when it changes.
+
+You want to:
+
+- Embed a custom visualization? The tool doesn't support it.
+- Version your slides in Git? Export, upload, hope the format stays compatible.
+- Use an AI agent to generate slides? You get proprietary markup that needs manual fixing.
+- Export to PDF? It doesn't match what you saw on screen.
+- Reuse slide components across multiple decks? Copy-paste and maintain separately.
+
+Five years later, the tool might be gone or behind a paywall, and your files are trapped.
+
+## The Solution
+
+HTML Deck Studio inverts that. Your slides are HTML files. The files are the center. The tools are interchangeable.
+
+- **Present** using a lightweight browser-based viewer
+- **Generate** decks with AI using a stable template system
+- **Export** to PDF using a simple Python script
+- **Version** everything in Git like code
+- **Embed** anything that renders in a browser—D3, Mermaid, React, live data
+
+![](./400-assets/100.png)
 
 In this repository, you'll find:
 
-- A presentation viewer that allows you to present HTML slides and provides navigation, notes, overview, and fullscreen.
-- An AI-assisted workflow for generating and updating HTML slide decks using a stable template system and tokenized themes.
-- A PDF export tool that converts your HTML slides available for sharing or printing.
+- A presentation viewer that provides navigation, notes, overview, and fullscreen
+- An AI-assisted workflow for generating and updating HTML slide decks with stable templates and token-based theming
+- A PDF export tool that converts your HTML slides to full-bleed 16:9 PDFs for sharing or printing
 
-The best part: No installation, no build step, no lock-in. All content belongs to you, can be versioned in Git, and finely controlled with the full power of HTML, CSS, and JavaScript. You get to embeed Mermaid charts, D3 visualizations, or any web-native content. The viewer handles the presentation layer while you focus on crafting your narrative.
-
-![](./400-assets/100.png)
+The viewer is a single HTML file. No installation. No build step. No lock-in.
 
 ## Three Ways to Use It
 
 ### 1. Just Present a Deck
 
-Open [HTML Slides Viewer](./100-viewer.html), pick a folder of `.html` slides, and go. No installation, no internet, no dependencies. Full navigation, notes, overview, and fullscreen. Works on any machine, any time.
+Open [HTML Slides Viewer](./100-viewer.html) in a browser, select a folder of `.html` slides, and present. Arrow keys navigate. Press `O` for overview, `N` for notes, `Z` for fullscreen. Works offline, any machine.
 
 ### 2. Generate Decks with AI
 
-Give a coding agent the [Templates Folder](./300-templates/) as context. It creates complete standalone HTML slides with embedded tokens and CSS. Theme system included. Update your deck by regenerating slides.
+Give a coding agent the [Templates Folder](./300-templates/) folder as context. It creates clean HTML slides following stable conventions. Regenerate whenever content changes. Token-based theming keeps your branding intact.
 
 ### 3. Export to PDF
 
-Convert your slide folder to a full-bleed 16:9 PDF for sharing or printing. Optional Python toolchain. Same files, production output.
-
-## Why This Exists
-
-- **Power and flexibility of HTML:** Create slides with any web content, custom layouts, and interactive features. You're not limited by a tool's capabilities.
-- **AI-friendly:** The template system gives coding agents a stable structure for creating and updating decks. Your slides stay readable, diffable source.
-- **Portable by design:** Each slide is a complete standalone HTML file with its own markup, CSS, and theme tokens. Move, share, or version them like any text file.
-
-## Quick Start
-
-### Present a Deck
-
-1. Open [HTML Slides Viewer](./100-viewer.html) in a modern browser.
-2. Click **Choose Folder**.
-3. Select a folder containing `slide0100.html`, `slide0200.html`, and so on.
-4. Present with arrow keys, toolbar buttons, overview mode, notes, or fullscreen.
-
-### Generate a Deck With AI
-
-Use the authoring system in [Templates Folder](./300-templates/) when asking an AI coding agent to create or update a deck.
-
-Recommended starting points:
-
-- [010-overview.md](./300-templates/010-overview.md)
-- [020-system-guide.md](./300-templates/020-system-guide.md)
-- [010-ai-workflow.md](./300-templates/130-workflows/010-ai-workflow.md)
-- [020-output-contract.md](./300-templates/130-workflows/020-output-contract.md)
-
-Generated decks should usually go in `500-output/<deck-name>/` with standalone slide files and a `deck-context.md`.
-
-Name slide files with zero-padded 4-digit numbers: start at `slide0100.html`, then use `slide0200.html`, `slide0300.html`, and so on.
-
-### Export a Deck to PDF
-
-PDF export is intentionally separate from normal viewer use so the viewer remains dependency-free.
+Convert a slide folder to PDF for sharing or printing:
 
 ```bash
 python3 -m venv .venv
 .venv/bin/python -m pip install -r 600-tools/requirements/pdf.txt
 .venv/bin/python -m playwright install chromium
-.venv/bin/python 600-tools/export_pdf.py <deck-folder> --out output.pdf
+.venv/bin/python 600-tools/export_pdf.py my-deck --out my-deck.pdf
 ```
 
-The exporter renders each slide in Chromium and merges the pages into one full-bleed 16:9 PDF.
+## Who This Is For
 
-## Security and Privacy
+**Developers who want to version-control presentations**
 
-The viewer is designed for local-first use.
+Your slides are source files. Commit them. Diff them. Merge them. Use branches for major revisions.
 
-- Selected files are read by the browser only after the user chooses them.
-- Slide and asset files are represented with temporary object URLs.
-- Old object URLs are revoked when a new deck is loaded.
-- Slides render in sandboxed iframes so slide code is separated from the viewer chrome.
-- The viewer does not upload selected slide files.
+**People working with AI agents**
 
-Important boundary: arbitrary HTML slides can still contain remote references. Use the validation tools and avoid remote runtime assets when you need fully offline or no-network behavior.
+Agents understand code and conventions. Give them the template system, ask them to generate slides, and get clean, regenerable HTML without proprietary format friction.
 
-Read more in [120-security-model.md](./150-docs/120-security-model.md).
+**Presenters with custom content needs**
+
+Embed D3 visualizations, Mermaid charts, live data feeds, or interactive components. The full power of HTML, CSS, and JavaScript.
+
+**Anyone who wants to own their files**
+
+HTML files work in any browser. PDFs work everywhere. No vendor lock-in. No proprietary format rot.
+
+## Key Features
+
+- **No installation required** for normal use. The viewer is a single HTML file.
+- **Works offline.** Present anywhere without internet or server dependencies.
+- **Portable files.** HTML slides, CSS styling, and assets in a simple folder structure.
+- **Version control friendly.** Plain text HTML diffs, branches, merges, and history.
+- **Sandboxed presentation.** Slides render in iframes separate from the viewer.
+- **Speaker notes built in.** Extract and display without executing slide code.
+- **Presenter window support.** Press `P` to open notes on one monitor, slides on another.
+- **AI-friendly templating.** Stable structure for agents to generate and regenerate decks.
+- **Token-based theming.** Regenerate slide content without losing customization.
+- **Optional PDF export.** Renders in Chromium for pixel-perfect full-bleed output.
 
 ## Repository Map
 
 Core folders:
 
-- [100-viewer.html](./100-viewer.html) - local presentation viewer.
-- [150-docs/](./150-docs/) - user guide, PDF export guide, security model, and development/testing guide.
-- [200-demos/](./200-demos/) - reference demo deck built to the current slide contract.
-- [300-templates/](./300-templates/) - AI authoring system, token references, layout catalog, and output rules.
-- [500-output/](./500-output/) - recommended location for generated decks.
-- [600-tools/](./600-tools/) - validation, smoke tests, CI helpers, and PDF export tooling.
+- [`100-viewer.html`](./100-viewer.html) - the presentation viewer (single file, no dependencies).
+- [`150-docs/`](./150-docs/) - documentation, guides, and reference material.
+- [`200-demos/`](./200-demos/) - a reference demo deck built to the current slide contract.
+- [`300-templates/`](./300-templates/) - AI authoring system, token references, layout catalog, and output contracts.
+- [`500-output/`](./500-output/) - recommended location for generated decks.
+- [`600-tools/`](./600-tools/) - validation, smoke tests, CI helpers, and optional PDF export tooling.
 
 ## Documentation
 
-Start with [150-docs/README.md](./150-docs/README.md).
+Start here:
 
-- [100-user-guide.md](./150-docs/100-user-guide.md) - how to open, present, and navigate decks.
-- [110-pdf-export.md](./150-docs/110-pdf-export.md) - setup, export commands, options, and troubleshooting.
-- [120-security-model.md](./150-docs/120-security-model.md) - privacy boundaries and iframe/file handling.
-- [130-development-and-tests.md](./150-docs/130-development-and-tests.md) - checks, CI, and maintenance rules.
+- [`150-docs/100-user-guide.md`](./150-docs/100-user-guide.md) - how to open, present, and navigate decks.
+- [`150-docs/110-pdf-export.md`](./150-docs/110-pdf-export.md) - setup and export commands.
+- [`150-docs/120-security-model.md`](./150-docs/120-security-model.md) - privacy boundaries and file handling.
+- [`150-docs/130-development-and-tests.md`](./150-docs/130-development-and-tests.md) - maintenance, checks, and CI.
 
-The [300-templates/](./300-templates/) folder is deeper reference material for AI-assisted deck creation.
+For AI-assisted deck creation, see [`300-templates`](./300-templates/010-overview.md) and the guides within.
 
-## Development Checks
+## Quick Start
 
-Run the standard checks before considering viewer, demo, template, or tooling changes done:
+### Present a Deck
+
+1. Open [`100-viewer.html`](./100-viewer.html) in a modern browser.
+2. Click **Choose Folder**.
+3. Select a folder containing slide files (`slide0100.html`, `slide0200.html`, etc.).
+4. Navigate with arrow keys, `O` for overview, `N` for notes, `Z` for fullscreen.
+
+### Generate a Deck With AI
+
+1. Review [`300-templates/010-overview.md`](./300-templates/010-overview.md) and [`300-templates/020-system-guide.md`](./300-templates/020-system-guide.md).
+2. Give those to a coding agent as context.
+3. Ask the agent to generate a deck in [`500-output/<deck-name>/`](./500-output/).
+4. Open the generated `slide0100.html` onwards in the viewer.
+
+### Export to PDF
+
+```bash
+.venv/bin/python 600-tools/export_pdf.py 500-output/my-deck --out my-deck.pdf
+```
+
+See [`150-docs/110-pdf-export.md`](./150-docs/110-pdf-export.md) for full setup and options.
+
+## Security and Privacy
+
+The viewer is designed for local-first use.
+
+- Selected files are read by the browser only after you choose them.
+- Files are represented with temporary object URLs; old ones are revoked when you load a new deck.
+- Slides render in sandboxed iframes separate from the viewer.
+- The viewer does not upload your files.
+
+For details, see [`150-docs/120-security-model.md`](./150-docs/120-security-model.md).
+
+## Development
+
+Run standard checks before committing:
 
 ```bash
 python3 600-tools/run_checks.py
 ```
 
-Run the browser smoke test when the optional development dependencies are installed:
+Run the full browser suite when development dependencies are installed:
 
 ```bash
 python3 -m venv .venv
 .venv/bin/python -m pip install -r 600-tools/requirements/dev.txt
 .venv/bin/python -m playwright install chromium
-.venv/bin/python 600-tools/run_checks.py --browser
+python3 600-tools/run_checks.py --browser
 ```
 
-The GitHub Actions workflow in [.github/workflows/ci.yml](./.github/workflows/ci.yml) runs the same browser-enabled check suite on push and pull request.
+See [`150-docs/130-development-and-tests.md`](./150-docs/130-development-and-tests.md) for more.
+
+## Why This Exists
+
+Most presentation tools lock you into a single system. HTML Deck Studio optimizes for your files instead.
+
+Files that are:
+
+- **Portable.** They work in any browser, forever.
+- **Versionable.** Diffs, branches, and history like code.
+- **Generatable.** AI agents understand the structure.
+- **Extensible.** Full power of HTML, CSS, and JavaScript.
+- **Yours.** No vendor, no lock-in, no proprietary format.
+
+This matters because presentations accumulate. Every deck is an asset. Those assets should belong completely to you.
